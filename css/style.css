@@ -274,6 +274,11 @@ article p.info, article p.bottom_info {
     padding: 2px 0;
 }
 
+article p.text {
+    font-family: 微软雅黑, serif;
+    font-size: 1.5em;
+}
+
 article p.info span {
     font-style: normal;
     font-weight: bold;
