@@ -1,26 +1,3 @@
-/*******************************************************************************
- *  Name: style.css
- *  Author: webexpedition18
- *  Web: http://www.webexpedition18.net
- *
- *  Description: stylesheet for Grey theme
- *
- *******************************************************************************
- *
- *  MENU:
- *        00. Libraries                 ->
- *        01. Basic Elements            ->
- *        02. Text                      ->
- *        03. Layout Structure          ->
- *          - 03.01 Header              ->
- *          - 03.02 Nav                 ->
- *          - 03.03 Wrapper             ->
- *          	- 03.03.01 Section      ->
- *          	- 03.03.02 Aside        ->
- *          - 03.04 Footer              ->
- *        04. Wordpress                 ->
-*/
-/* -- 00. Import Lybraries -- */
 @import url(reset.css);
 @import url(960gs.css);
 
@@ -355,6 +332,21 @@ article .time {
     border-radius: 10px;
     -moz-border-radius: 10px;
     -webkit-border-radius: 10px;
+}
+
+article .text {
+    font-size: 13px;
+    font-family: 微软雅黑, serif;
+}
+
+article .text li {
+    margin: 6px;
+    line-height: normal;
+    font-size: 13px;
+}
+
+article .text h4 {
+    font-family: 华文新魏, serif;
 }
 
 article .time p {
