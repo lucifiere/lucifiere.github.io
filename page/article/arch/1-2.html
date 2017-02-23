@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <!-- title -->
+    <title>王贤兑的技术博客</title>
+
+    <!-- meta -->
+    <meta charset="UTF-8">
+
+    <!-- links -->
+    <link rel="stylesheet" type="text/css" media="screen" href="../../../css/style.css">
+
+    <!-- scripts -->
+
+    <!-- IE Hacks -->
+    <!--[if IE]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+</head>
+<body class="home blog">
+
+<!-- header -->
+<header>
+    <div id="light">
+        <div class="container_16">
+            <h1 class="grid_8" style="font-size: 45px"><a href="../../../index.html">Code Craft Of XD.Wang</a></h1>
+            <nav class="grid_8">
+                <ul id="menu-menu" class="menu">
+                    <li><a href="../../../index.html">主页</a></li>
+                    <li><a href="../../../page/list/blog.html">博客</a></li>
+                    <li><a href="../../../page/list/me.html">ME</a></li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</header>
+<div class="copyrights">作者：王贤兑</div>
+
+<!-- wrapper -->
+<div id="wrapper">
+    <div class="container_16">
+        <section id="posts" class="prefix_1 grid_9">
+
+            <article>
+                <h2>如何设计支撑分布式服务的通信框架</h2>
+                <p class="info">February 23th, 2017 | by <span><a href="#" rel="author">XD.Wang</a></span> | arch
+                </p>
+                <div class="time"><p>Feb<br><span>23</span></p></div>
+
+                <p></p>
+
+                <div class="text">
+                    <p><img src="../../../images/article/arch/1-2.jpg" height="250" width="510"></p>
+
+                    <p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在设计通信框架时，我们需要考虑的问题包括但不限于：</p>
+                    <ul>
+                        <li><b>连接类型：</b>选择长连接还是短连接；</li>
+                        <li><b>通信模式：</b>NIO还是BIO；</li>
+                        <li><b>框架选择：</b>java.nio、Mina、Netty还是自研；</li>
+                    </ul>
+                    <p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;首先，对于连接类型，一般选用长连接来做消息通信。之所以这么选，
+                        主要是考虑到网络性能和系统资源利用这两点。创建一条TCP连接，需要经历链路创建与释放、三次握手等环节，
+                        这些过程都会损耗一定的系统资源，带来较长的网络时延。在分布式服务这样的场景中，RPC调用是高频行为，
+                        频繁链路重建会严重ing影响系统性能，当业务规模超过一定量级时，积累起来的性能损耗是不能接受的。</p>
+                    <p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;其次，在通信方式上，NIO和BIO各有优势。BIO通过传统的请求 -> 等待应答的方式来构筑程序，
+                        同步阻塞的应用开发相对易于设计，但难以突破性能、可靠性等问题，在访问压力增大后，只能通过硬件扩容来解决高并发带来的性能问题，
+                        一定程度上增加了企业的成本。使用BIO来设计一个通信框架时，通常会维护一个Acceptor线程来监听客户端的连接，当和客户端建立连接后，
+                        通信服务器会开启一个新的线程，执行请求的任务，待任务完成，将结果写入流中返回给客户端，并销毁线程。</p>
+                    <p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;显然，随着客户端的并发请求增多，服务器需要的线程资源也越来越多，若服务端创建了太多的线程，
+                        势必导致服务器性能大幅下降，甚至出现线程创建失败、堆栈溢出等问题，最终可能使进程直接挂掉。</p>
+                    <p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 通常情况下，这种高并发、低时延的业务场景，可以通过多线程、IO多路复用的技术来解决。</p>
+                    <ul>
+                        <li><b>IO多路复用：</b></li>
+                        <li>IO多路复用将几个IO阻塞转移到同一个Selector上，通过记录各个sock的状态来管理流，使得系统在单线程的情况下也可处理多个请求，
+                            提高服务器的吞吐量。</li>
+                        <li>具体细节参考大牛罗志宇的讲解 https://www.zhihu.com/question/32163005/answer/55772739</li>
+                    </ul>
+                    <p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Java从1.4版本开始，推出了NIO来解决高负载、高并发的IO场景。
+                        JDK通过epoll来代替传统的select，支持通过一个线程来接入上万个客户端。</p>
+                    <p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 最后，在开发通信框架前，需要明确使用的工具。作为一个中间件开发者，
+                        理论上应该熟悉java.nio的使用、高并发编程模型（比如reactor模型、actor模型等）以及架构设计模式。但实际上，
+                        能达到如此水平的程序员并非很多，为了降低开发难度，提升开发效率，多数企业选择使用Netty、Mina等框架来做进一步开发。</p>
+                </div>
+                <div class="clear"></div>
+            </article>
+
+        </section>
+
+        <aside class="prefix_1 grid_5">
+
+            <!-- Categories-->
+            <h4>Categories</h4>
+            <ul class="categories">
+                <li><a href="../../../page/list/lang.html">语言</a></li>
+                <li><a href="../../../page/list/algorithm.html">算法</a></li>
+                <li><a href="../../../page/list/framework.html">框架</a></li>
+                <li><a href="../../../page/list/tool.html">工具</a></li>
+                <li><a href="../../../page/list/arch.html">架构</a></li>
+                <li><a href="../../../page/list/jvm.html">虚拟机</a></li>
+            </ul>
+            <div class="clear"></div>
+            <hr>
+
+            <!-- article -->
+            <h4>Articles</h4>
+            <ul class="blogroll">
+                <li><a href="../../../page/article/tool/1-1.html">MySql性能优化</a></li>
+                <li><a href="../../../page/article/tool/1-2.html">Binary Log简介</a></li>
+                <li><a href="../../../page/article/arch/1-1.html">分布式服务框架概述</a></li>
+                <li><a href="../../../page/article/arch/1-2.html">如何设计支撑分布式服务的通信框架</a></li>
+                <li><a href="#">最近发布</a></li>
+                <li><a href="#">最近发布</a></li>
+                <li><a href="#">最近发布</a></li>
+                <li><a href="#">最近发布</a></li>
+                <li><a href="#">最近发布</a></li>
+                <li><a href="#">最近发布</a></li>
+                <li><a href="#">最近发布</a></li>
+                <li><a href="#">最近发布</a></li>
+                <li><a href="#">最近发布</a></li>
+                <li><a href="#">最近发布</a></li>
+            </ul>
+            <hr>
+
+        </aside>
+    </div>
+</div>
+
+<!-- footer -->
+<footer>
+    <section id="footer_content">
+        <div class="container_12">
+
+        </div>
+    </section>
+    <section id="powered">
+        <div class="container_12">
+            <p class="grid_10"> code craft by <a href="https://lucifiere.github.io/"
+                                                 title="王贤兑的博客" target="_blank"> XD.Wang </a></p>
+            <p class="grid_2"><a class="top" href="#">▲ Back to top</a></p>
+        </div>
+    </section>
+</footer>
+</body>
+</html>
