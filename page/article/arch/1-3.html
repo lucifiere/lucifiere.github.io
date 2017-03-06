@@ -42,37 +42,40 @@
         <section id="posts" class="prefix_1 grid_9">
 
             <article>
-                <h2>通信框架设计：技术选型和可靠性</h2>
-                <p class="info">February 23th, 2017 | by <span><a href="#" rel="author">XD.Wang</a></span> | arch
+                <h2>服务路由</h2>
+                <p class="info">March 2th, 2017 | by <span><a href="#" rel="author">XD.Wang</a></span> | arch
                 </p>
-                <div class="time"><p>Feb<br><span>23</span></p></div>
+                <div class="time"><p>Mar<br><span>3</span></p></div>
 
                 <p></p>
 
                 <div class="text">
                     <p><img src="../../../images/article/arch/1-2.jpg" height="250" width="510"></p>
-                    <h4>选型</h4>
+                    <h4>注册中心</h4>
                     <p>
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;一个通信框架服务端从职责上来讲应支持：按配置参数初始化服务端、提供上层API已屏蔽NIO细节、支持编解码插件化、
-                        支持私有通信协议定制接口。
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;当某个服务在集群中有多个实例时，服务调用者需要从多个实例中选择合适的节点获取服务，
+                        选择适当服务节点的策略，称作服务路由。在分布式服务框架中，注册中心通过记录服务提供者地址、服务发布相关属性来进行服务的订阅和发布，
+                        消费者通过主动查询或被动通知的方式从注册中心得到服务提供者的相关信息，路由行为由注册中心配置，对服务调用者透明，
+                        调用者无需了解服务提供者具体在哪。
                     </p>
-                    <p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;为了设计出一个可靠的通信框架时，我们需要考虑的问题包括但不限于：</p>
+                    <p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;服务中心和服务提供者维持有一条长连接，提供者讲地址和属性列表发送给注册中心，
+                        服务消费者根据接口名等信息，从注册中心拿到提供者列表和相应信息，缓存到本地。当服务提供者发生变动时，比如下线、宕机、新增，
+                        注册中心都会将相应的变动推送给服务调用者，更新本地缓存。</p>
+                    <p>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这样的方案的好处如下：
+                    </p>
                     <ul>
-                        <li><b>连接类型：</b>选择长连接还是短连接；</li>
-                        <li><b>通信模式：</b>NIO还是BIO；</li>
-                        <li><b>框架选择：</b>java.nio、Mina、Netty还是自研；</li>
+                        <li><b>缓存：</b>省去了每次调用的请求、提高性能；</li>
+                        <li><b>高可用：</b>注册中心宕机、暂时不影响服务调用；</li>
                     </ul>
-                    <p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;首先，对于连接类型，一般选用长连接来做消息通信。之所以这么选，
-                        主要是考虑到网络性能和系统资源利用这两点。创建一条TCP连接，需要经历链路创建与释放、三次握手等环节，
-                        这些过程都会损耗一定的系统资源，带来较长的网络时延。在分布式服务这样的场景中，RPC调用是高频行为，
-                        频繁链路重建会严重ing影响系统性能，当业务规模超过一定量级时，积累起来的性能损耗是不能接受的。</p>
-                    <p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;其次，在通信方式上，NIO和BIO各有优势。BIO通过传统的请求 -> 等待应答的方式来构筑程序，
-                        同步阻塞的应用开发相对易于设计，但难以突破性能、可靠性等问题，在访问压力增大后，只能通过硬件扩容来解决高并发带来的性能问题，
-                        一定程度上增加了企业的成本。使用BIO来设计一个通信框架时，通常会维护一个Acceptor线程来监听客户端的连接，当和客户端建立连接后，
-                        通信服务器会开启一个新的线程，执行请求的任务，待任务完成，将结果写入流中返回给客户端，并销毁线程。</p>
-                    <p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;显然，随着客户端的并发请求增多，服务器需要的线程资源也越来越多，若服务端创建了太多的线程，
-                        势必导致服务器性能大幅下降，甚至出现线程创建失败、堆栈溢出等问题，最终可能使进程直接挂掉。</p>
-                    <p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;通常情况下，这种高并发、低时延的业务场景，可以通过多线程、IO多路复用的技术来解决。</p>
+                    <h4>负载均衡</h4>
+                    <p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;服务路由的重要目的之一就是负载均衡，常见策略有随机算法、轮询、一致性哈希、时延控制轮询、粘滞连接等。</p>
+                    <p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;随机算法：随机路由。实施简单，但各台机器服务能力不同时，无法做到负载均衡，算法实现可用Random类或者SecurityRandom类</p>
+                    <p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;轮询：为每个机器设置权重，依次分派任务。</p>
+                    <p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;时延控制轮询：时延控制轮询是轮询的加强版，轮询可能造成的问题是：不同机器处理处理服务的时延不同，时延大的机器可能造成请求阻塞。
+                        时延控制轮询可以动态计算每个机器的服务时延，根据计算结果动态修改权重，避免普通轮询带来的问题，防止请求堆积</p>
+                    <p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;粘滞连接：当服务是有状态的，每次服务必须要落到同一个提供者机器，这种情况叫粘滞连接。</p>
+
                     <ul>
                         <li><b>IO多路复用：</b></li>
                         <li>IO多路复用将几个IO阻塞转移到同一个Selector上，通过记录各个sock的状态来管理流，使得系统在单线程的情况下也可处理多个请求，
@@ -130,18 +133,6 @@
                     <p>
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;通信框架退出时，需要注意资源释放问题，可能包括连接池、消息队列、socket、多路复用器等。
                     </p>
-                    <h4>性能</h4>
-                    <p>
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;通信框架的性能可通过合理使用Netty来保证。Netty支持异步非阻塞通信，以及高效的IO处理机制，
-                        除此之外，Netty还支持Protobuf高效序列化、 零拷贝、内存池等其他特性，这些都能帮助开发人员构建高性能的通信框架。
-                    </p>
-                    <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Netty基于NIO开发，内部采用Selector处理成千上万个Socket通道，支持非堵塞的读写操作，
-                        采用Reactor线程来管理IO，很大程度上提升了IO操作的效率，可满足大多数场景的性能需求。</p>
-                    <h4>经验</h4>
-                    <p>
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    </p>
-
                 </div>
                 <div class="clear"></div>
             </article>
@@ -159,8 +150,6 @@
                 <li><a href="../../../page/list/database.html">数据库</a></li>
                 <li><a href="../../../page/list/arch.html">架构</a></li>
                 <li><a href="../../../page/list/jvm.html">虚拟机</a></li>
-                <li><a href="../../../page/list/bigdata.html">大数据</a></li>
-                <li><a href="../../../page/list/tool.html">工具</a></li>
             </ul>
             <div class="clear"></div>
             <hr>
