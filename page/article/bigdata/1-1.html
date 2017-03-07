@@ -59,8 +59,9 @@
                         均可作为创建RDD的数据来源。RDD创建后，处理的结果可存储在内存或硬盘之中，具体存储方案可通过Storage Level类来设定。
                     </p>
                     <h4>RDD 操作</h4>
-                    <p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RDD操作可以分为两大类：转化操作（包括单元素转化和键值对转化）和行动操作，多数转化操作都可生成新的RDD对象，
-                        行动操作将触发一次任务提交，一般会返回一个值，或执行存储操作。</p>
+                    <p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RDD操作可以分为两大类：转化操作（包括单元素转化和键值对转化）和行动操作，转化操作可生成一个新的RDD对象，
+                        行动操作将触发一次任务提交，一般会返回一个值，或执行存储操作。需要注意的是，转化操作是惰性操作，只有当任务提交时转化操作才会真正执行，
+                        并且每次任务提交都会使整个RDD转化从头进行，因此，若要复用之前的提交结果，需要预先进行persist操作。</p>
                     <p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RDD转化操作（单元素）包括：</p>
                     <ol>
                         <li><b>map：</b>将函数作用于RDD的每个元素上，并返回新的RDD</li>
@@ -71,6 +72,7 @@
                         <li><b>intersection：</b>求出交集，返回新的RDD</li>
                         <li><b>subtract：</b>求差集，调用集合减去参数集合，返回新的RDD</li>
                         <li><b>cartesian：</b>求笛卡尔积，返回新的RDD</li>
+                        <li><b>groupBy：</b>根据函数生成键，并按照键分组，返回新的键值RDD</li>
                     </ol>
 
                     <p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RDD转化操作（键值元素）包括：</p>
@@ -83,11 +85,16 @@
 
                     <p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RDD行动操作包括：</p>
                     <ol>
-                        <li><b>collect：</b>返回RDD的所有元素</li>
+                        <li><b>collect：</b>返回RDD的所有元素（注意：超大规模RDD不应调用此命令）</li>
+                        <li><b>take：</b>返回RDD的指定多个元素（返回顺序不确定）</li>
+                        <li><b>top：</b>返回RDD的指定多个元素（返回顺序确定）</li>
                         <li><b>count：</b>返回RDD里的元素个数</li>
                         <li><b>countByValue：</b>某元素在RDD出现的次数</li>
                         <li><b>reduce：</b>并行整合所有RDD的数据</li>
-                        <li><b>save：</b>保存数据</li>
+                        <li><b>saveAsTextFile：</b>保存到文件系统</li>
+                        <li><b>saveAsSequenceFile：</b>以SequenceFile形式保存到HDFS</li>
+                        <li><b>saveAsObjectFile：</b>将RDD序列化为对象并保存到文件</li>
+
                     </ol>
                     <h4>RDD 创建</h4>
                     <p>
@@ -103,6 +110,36 @@
                     <div class="code"><br>sc.textFile("file:/");<br></div>
                     <p>
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;上面的代码演示了从Java数据结构类、HDFS、本地文件系统来创建RDD。
+                    </p>
+
+                    <h4>参数传递</h4>
+                    <p>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;相对于Scala和Python，Java对RDD操作时进行的参数传递相对麻烦一点，需借助function包中的接口完成。
+                    </p>
+                    <p>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1. Function&lt;T, R&gt;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;接收输入值T，返回输出值R<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;示例：filter、map<br>
+                    </p>
+                    <p>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2. Function&lt;T1, T2, R&gt;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;接收输入值T1，T2，返回输出值R<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;示例：aggregate、fold<br>
+                    </p>
+                    <p>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3. FlatMapFunction&lt;T, R&gt;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;接收输入值T，返回输出值集合迭代器Iterator&lt;R&gt;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;示例：flatMap<br>
+                    </p>
+                    <p>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4. DoubleFlatMapFunction&lt;T, R&gt;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;接收输入值T，返回输出值集合迭代器Iterator&lt;R&gt;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;示例：flatMapToDouble<br>
+                    </p>
+                    <p>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4. PairFunction&lt;T, K, V&gt;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;接收输入值T，返回输出值键值对&lt;K, V&gt;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;示例：mapToPair<br>
                     </p>
 
                 </div>
