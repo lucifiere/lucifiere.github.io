@@ -51,6 +51,11 @@
 
                 <div class="text">
                     <p><img src="../../../images/article/bigdata/1-1.jpg" height="250" width="510"></p>
+                    <h4>概述</h4>
+                    <p>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Spark是当前最流行的分布式计算框架之一，它能完美整合到Hadoop生态系统，
+                        替代Hadoop MapReduce进行分布式运算。Spark最重要的特点之一是能够在内存中进行计算，这样
+                    </p>
                     <h4>RDD(Resilient Distributed Datasets)</h4>
                     <p>
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Spark支持Scala、Python和Java三种语言，本文整理了常用的Java API，以及Spark应用的基本编程思路。
@@ -80,7 +85,13 @@
                         <li><b>groupByKey：</b>将RDD的每个元素按照键来分组，并返回新的键值对型RDD</li>
                         <li><b>reduceByKey：</b>将RDD的每个元素按照键来分组，然后执行函数操作，并返回新的键值对型RDD</li>
                         <li><b>mapValue：</b>将函数作用于RDD的每个元素的值上，并返回新的键值对型RDD</li>
-                        <li><b>join：</b>根据键进行join，连接两个RDD,并返回新的键值对型RDD</li>
+                        <li><b>join：</b>根据键进行内连接，连接两个RDD,并返回新的键值对型RDD</li>
+                        <li><b>leftOuterJoin：</b>根据键进行左连接，连接两个RDD,并返回新的键值对型RDD</li>
+                        <li><b>rightOuterJoin：</b>根据键进行右连接，连接两个RDD,并返回新的键值对型RDD</li>
+                        <li><b>key：</b>返回一个仅包括键的元素型RDD</li>
+                        <li><b>values：</b>返回一个仅包含值的元素型RDD</li>
+                        <li><b>sortByKey：</b>根据键来对元素排序</li>
+
                     </ol>
 
                     <p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RDD行动操作包括：</p>
@@ -90,7 +101,7 @@
                         <li><b>top：</b>返回RDD的指定多个元素（返回顺序确定）</li>
                         <li><b>count：</b>返回RDD里的元素个数</li>
                         <li><b>countByValue：</b>某元素在RDD出现的次数</li>
-                        <li><b>reduce：</b>并行整合所有RDD的数据</li>
+                        <li><b>reduce：</b>并行规约所有RDD的数据</li>
                         <li><b>saveAsTextFile：</b>保存到文件系统</li>
                         <li><b>saveAsSequenceFile：</b>以SequenceFile形式保存到HDFS</li>
                         <li><b>saveAsObjectFile：</b>将RDD序列化为对象并保存到文件</li>
@@ -101,7 +112,8 @@
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;JavaSparkContext：JavaSparkContext是SparkContext的Java版本，
                         可看做Spark编程的入口，它表示应用程序和Spark集群的连接，可用来创建RDD。
                     </p>
-                    <div class="code"><br>JavaSparkContext sc = new JavaSparkContext("yarn-client","SparkApp");<br></div>
+                    <div class="code"><br>JavaSparkContext sc = new JavaSparkContext("yarn-client","SparkApp");<br>
+                    </div>
                     <p>
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;其中，参数一表示运行方式，另一个是应用的名称。
                     </p>
@@ -114,7 +126,8 @@
 
                     <h4>参数传递</h4>
                     <p>
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;相对于Scala和Python，Java对RDD操作时进行的参数传递相对麻烦一点，需借助function包中的接口完成。
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在执行RDD算子时，经常需要传入参数或返回结果。相对于Scala和Python，
+                        Java对RDD操作时进行的参数传递相对麻烦一点，需借助function包中的接口完成。
                     </p>
                     <p>
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1. Function&lt;T, R&gt;<br>
@@ -137,10 +150,31 @@
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;示例：flatMapToDouble<br>
                     </p>
                     <p>
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4. PairFunction&lt;T, K, V&gt;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;5. PairFunction&lt;T, K, V&gt;<br>
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;接收输入值T，返回输出值键值对&lt;K, V&gt;<br>
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;示例：mapToPair<br>
                     </p>
+
+                    <h4>使用技巧</h4>
+                    <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;I. 行动操作不宜太多，每次行动操作都会为之前的TaskSet划分为一个Job，之前的Task并不释放，占用内存，影响GC效率。</p>
+                    <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;II. 做join的时候，尽量用小RDD去join大RDD，用大RDD去join超大的RDD。</p>
+                    <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;III. 避免collect的使用。当数据集规模较大时，会通过各个work进行收集，io增多，拉低性能，因此当数据集很大时应该save到HDFS。</p>
+                    <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IV. 当RDD需要配合后续行动操作的迭代，最好先cache起来，但当RDD较大时，为防止内存溢出或必要历史数据擦除，应使用persist(MEMORY_AND_DISK)</p>
+                    <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;V. 不要重复创建RDD，并尽量复用已创建好的RDD</p>
+                    <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;VI. Spark任务中最消耗性能的过程是shuffle，shuffle会把分布在多个节点的数据集中在一个节点上，会引起较大的IO、网络开销，
+                        因此应尽量避免引起shuffle的操作，常见的有join、reduceByKey、distinct和reparation
+                    </p>
+                    <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;VII. 不要重复创建RDD，并尽量复用已创建好的RDD</p>
+                    <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;VIII. 使用map-side预聚合的shuffle操作</p>
+                    <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IX. 使用高性能算子，使用优先级：</p>
+                    <ol>
+                        <li>mapPartitions > map</li>
+                        <li>foreachPartitions > foreach</li>
+                        <li>repartitionAndSortWithinPartitions > repartition、sort</li>
+                    </ol>
+                    <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;X. 当算子中需要传入大变量时，考虑使用Spark广播功能</p>
+                    <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;XI. 使用基本类型（int、long、数组）来替代字符串、集合（HashMap、ArrayList）、对象</p>
+
 
                 </div>
                 <div class="clear"></div>
