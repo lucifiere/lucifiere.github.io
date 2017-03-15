@@ -156,12 +156,16 @@
                     </p>
 
                     <h4>使用技巧</h4>
-                    <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;I. 行动操作不宜太多，每次行动操作都会为之前的TaskSet划分为一个Job，之前的Task并不释放，占用内存，影响GC效率。</p>
+                    <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;I.
+                        行动操作不宜太多，每次行动操作都会为之前的TaskSet划分为一个Job，之前的Task并不释放，占用内存，影响GC效率。</p>
                     <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;II. 做join的时候，尽量用小RDD去join大RDD，用大RDD去join超大的RDD。</p>
-                    <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;III. 避免collect的使用。当数据集规模较大时，会通过各个work进行收集，io增多，拉低性能，因此当数据集很大时应该save到HDFS。</p>
-                    <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IV. 当RDD需要配合后续行动操作的迭代，最好先cache起来，但当RDD较大时，为防止内存溢出或必要历史数据擦除，应使用persist(MEMORY_AND_DISK)</p>
+                    <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;III.
+                        避免collect的使用。当数据集规模较大时，会通过各个work进行收集，io增多，拉低性能，因此当数据集很大时应该save到HDFS。</p>
+                    <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IV.
+                        当RDD需要配合后续行动操作的迭代，最好先cache起来，但当RDD较大时，为防止内存溢出或必要历史数据擦除，应使用persist(MEMORY_AND_DISK)</p>
                     <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;V. 不要重复创建RDD，并尽量复用已创建好的RDD</p>
-                    <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;VI. Spark任务中最消耗性能的过程是shuffle，shuffle会把分布在多个节点的数据集中在一个节点上，会引起较大的IO、网络开销，
+                    <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;VI.
+                        Spark任务中最消耗性能的过程是shuffle，shuffle会把分布在多个节点的数据集中在一个节点上，会引起较大的IO、网络开销，
                         因此应尽量避免引起shuffle的操作，常见的有join、reduceByKey、distinct和reparation
                     </p>
                     <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;VII. 不要重复创建RDD，并尽量复用已创建好的RDD</p>
@@ -207,7 +211,7 @@
                 <li><a href="../../../page/article/arch/1-1.html">分布式服务框架概述</a></li>
                 <li><a href="../../../page/article/arch/1-2.html">通信框架设计：技术选型和可靠性</a></li>
                 <li><a href="../../../page/article/bigdata/1-1.html">Spark快速入门</a></li>
-                <li><a href="#">最近发布</a></li>
+                <li><a href="../../../page/article/jvm/1-1.html">JVM基础知识概述</a></li>
                 <li><a href="#">最近发布</a></li>
                 <li><a href="#">最近发布</a></li>
                 <li><a href="#">最近发布</a></li>
