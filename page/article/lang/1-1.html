@@ -75,13 +75,19 @@
                         极端情况下，某些线程会一直获取不到锁，产生饥饿。ReentrantLock允许通过构造方法来产生一个公平锁，按先到先得的顺序来进行锁的分配。
                         由于ReentrantLock要维护一个队列来支持公平性，性能肯定就会有所降低，因此若非必要，不应乱用公平锁。
                     </p>
+                    <p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Synchronized可以通过wait和notify控制线程的等待和唤醒，条件锁也有类似的机制，
+                        它通过Condition对象来改变线程的状态，让线程交出锁的使用权并等待，直到别的线程唤醒它，或者唤醒其他等待的线程。
+                    </p>
                     <ul>
                         <li><b>reentrantLock.lockInterruptibly()：</b>获取可中断锁。</li>
                         <li><b>reentrantLock.tryLock(long time，TimeUnit timeUnit)：</b>在指定时间内获取锁，获取成功返回true。</li>
-                        <li><b>ReentrantLock.tryLock(boolean isFair)：</b>是否启用公平锁。</li>
+                        <li><b>ReentrantLock(boolean isFair)：</b>是否启用公平锁。</li>
+                        <li><b>reentrantLock.newCondition()：</b>为该锁创建一个Condition。</li>
+                        <li><b>condition.await()：</b>使当前线程等待。</li>
+                        <li><b>condition.signal()：</b>唤醒一个线程。</li>
+                        <li><b>condition.signalAll()：</b>唤醒所有等待线程。</li>
                     </ul>
-
-
+                    
                 </div>
                 <div class="clear"></div>
             </article>
