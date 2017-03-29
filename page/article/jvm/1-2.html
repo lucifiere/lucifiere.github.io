@@ -59,7 +59,8 @@
                     <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;synchronized作用的代码块在编译为字节码后，会生成monitorenter和monitorexit指令，
                         以保证范围内的代码可以同步执行。从底层来看，Java中每个对象都有一个监视器锁，当该锁计数器为0时，允许一个线程占用该锁，
                         并将计数器值加一，当该线程释放锁时，计数器会减一，从而使其他线程有机会获取监视器锁。当synchronized作用于方法时，
-                        会为方法生成一个ACC_SYNCHRONIZED常量，当线程检测到该常量时，会先尝试获取该方法所在对象的监视器锁，若获取成功则执行方法。</p>
+                        会为方法生成一个ACC_SYNCHRONIZED常量，当线程检测到该常量时，会先尝试获取该方法所在对象的监视器锁，若获取成功则执行方法。
+                    </p>
 
                     <h4>Volatile</h4>
                     <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;volatile是一种轻量级的同步机制，它的作用主要包括：</p>
