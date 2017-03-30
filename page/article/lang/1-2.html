@@ -102,7 +102,7 @@
                         <span class="emphasizeRed">此策略可以避免在处理可能具有内部依赖性的请求集时出现锁。</span>当使用这种队列时，
                         需要为最大线程数指定一个相当大的值，防止因SynchronousQueue无法容纳线程而拒绝服务。
                     </p>
-                    <p class="tipGreen">
+                    <p class="tip">
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Tip：任务强依赖导致的死锁问题<br>
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;当任务具有依赖关系时，如A执行依赖B的执行，若线程池有界则可能导致线程池中所有线程都在执行A，
                         而B线程一直阻塞，A又依赖于B，最终形成一个锁死的状态。
