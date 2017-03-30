@@ -109,14 +109,26 @@
                     </p>
                     <p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>LinkedBlockingQueue:</b><br>
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LinkedBlockingQueue没有长度限制，当线程池中的线程都在工作时，任务会进入队列一直等待。
-                        无界队列适合处理独立工作无依赖的任务，有效保证系统资源的安全性。
+                        <span class="emphasizeRed">无界队列适合处理独立工作无依赖的任务，</span>有效保证系统资源的安全性。
                     </p>
                     <p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>ArrayBlockingQueue:</b><br>
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ArrayBlockingQueue有长度限制，可以有效保护系统资源，但为避免不合适的拒绝服务，
-                        需要根据业务来确定合适的最大线程数和队列大小。使用大队列配合小的线程池可以最大程度的保证系统资源的安全性，降低CPU使用、
+                        <span class="emphasizeRed">需要根据业务来确定合适的最大线程数和队列大小。</span>使用大队列配合小的线程池可以最大程度的保证系统资源的安全性，降低CPU使用、
                         资源上下文切换开销，但会影响系统的吞吐量。反之，可以增加CPU的利用率，提高吞吐量。不合理的扩大池容量会造成过大的资源耗损，
                         也会减少系统的吞吐量，所以合理调配池和队列的大小非常重要。
                     </p>
+
+                    <h4>拒绝服务</h4>
+                    <p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;上文已经提到过，当线程池中的线程达最大线程数，或者线程池被关闭时，线程池将拒绝继续服务。
+                        这种情况下，execute方法将调用Rejected ExceptionHandler接口的方法进行补救。用户可以自己实现该接口定义补救逻辑，
+                        也可使用既定的几种JDK定义的策略：
+                    </p>
+                    <ol>
+                        <li><b>ThreadPoolExecutor.AbortPolicy：</b>抛出运行时异常RejectedExecution Exception</li>
+                        <li><b>ThreadPoolExecutor.CallerRunsPolicy：</b>该策略将减缓线程池接收任务的频率</li>
+                        <li><b>ThreadPoolExecutor.DiscardPolicy：</b>该策略将被拒绝的任务删除</li>
+                        <li><b>ThreadPoolExecutor.DiscardPolicy：</b>移除工作队列头部的任务</li>
+                    </ol>
 
                 </div>
                 <div class="clear"></div>
