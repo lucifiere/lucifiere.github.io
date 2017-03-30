@@ -213,9 +213,11 @@ article {
     font-weight: bold;
 }
 
-.tipGreen {
-    color:darkgreen;
-    font-family: 微软雅黑, serif;
+.tip {
+    background-color: #d5d5d5;
+    color: black;
+    font-weight: lighter;
+    font-family: 黑体, serif;
     font-size: small;
 }
 
