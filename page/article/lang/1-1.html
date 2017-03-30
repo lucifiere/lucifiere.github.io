@@ -64,15 +64,14 @@
                         <li><b>reentrantLock.unlock()：</b>释放锁。若锁计数为0，则抛出IllegalMonitorState Exception异常，否则锁计数器减一</li>
                     </ul>
                     <h4>高级特性</h4>
-                    <p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;一般而言，线程尝试获取锁时会有两种情况，获取、阻塞，但ReentrantLock允许线程响应中断，
+                    <p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;一般而言，线程尝试获取锁时会有两种情况，获取、阻塞，但Reentrant Lock允许线程响应中断，
                         从而取消获取锁。如需响应中断，获取锁时需要调用lockInterruptibly方法而非lock方法。
                     </p>
                     <p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;响应中断可以处理死锁问题，除了响应中断外，限时等待也是处理死锁的一个利器。ReentrantLock允许线程进行有期限的锁等待，
                         用户可以定义在锁获取失败时的逻辑动作，使代码更加健壮。
                     </p>
                     <p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如果使用Synchronized来加锁，锁的获取是无法保证公平的，
-                        调度系统将随机指定某个线程获取锁（但根据实验，系统更倾向于将锁分配给之前获取了锁的线程），
-                        极端情况下，某些线程会一直获取不到锁，产生饥饿。ReentrantLock允许通过构造方法来产生一个公平锁，按先到先得的顺序来进行锁的分配。
+                        调度系统将随机指定某个线程获取锁，极端情况下，某些线程会一直获取不到锁，产生饥饿。ReentrantLock允许通过构造方法来产生一个公平锁，按先到先得的顺序来进行锁的分配。
                         由于ReentrantLock要维护一个队列来支持公平性，性能肯定就会有所降低，因此若非必要，不应乱用公平锁。
                     </p>
                     <p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Synchronized可以通过wait和notify控制线程的等待和唤醒，条件锁也有类似的机制，
@@ -87,7 +86,7 @@
                         <li><b>condition.signal()：</b>唤醒一个线程。</li>
                         <li><b>condition.signalAll()：</b>唤醒所有等待线程。</li>
                     </ul>
-                    
+
                 </div>
                 <div class="clear"></div>
             </article>
@@ -120,7 +119,7 @@
                 <li><a href="../../../page/article/arch/1-2.html">通信框架设计：技术选型和可靠性</a></li>
                 <li><a href="../../../page/article/bigdata/1-1.html">Spark快速入门</a></li>
                 <li><a href="../../../page/article/jvm/1-1.html">JVM基础知识概述</a></li>
-                <li><a href="#">最近发布</a></li>
+                <li><a href="../../../page/article/lang/1-2.html">理解Java线程池</a></li>
                 <li><a href="#">最近发布</a></li>
                 <li><a href="#">最近发布</a></li>
                 <li><a href="#">最近发布</a></li>

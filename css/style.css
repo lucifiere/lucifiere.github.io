@@ -203,6 +203,22 @@ article {
     margin-bottom: 80px;
 }
 
+.emphasizeGreen {
+    color: darkgreen;
+    font-weight: bold;
+}
+
+.emphasizeRed {
+    color: red;
+    font-weight: bold;
+}
+
+.tipGreen {
+    color:darkgreen;
+    font-family: 微软雅黑, serif;
+    font-size: small;
+}
+
 article.page h2 {
     background: url('../images/hr.png') repeat-x bottom left;
     padding-bottom: 15px;

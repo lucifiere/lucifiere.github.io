@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <!-- title -->
+    <title>王贤兑的技术博客</title>
+
+    <!-- meta -->
+    <meta charset="UTF-8">
+
+    <!-- links -->
+    <link rel="stylesheet" type="text/css" media="screen" href="../../../css/style.css">
+
+    <!-- scripts -->
+
+    <!-- IE Hacks -->
+    <!--[if IE]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+</head>
+<body class="home blog">
+
+<!-- header -->
+<header>
+    <div id="light">
+        <div class="container_16">
+            <h1 class="grid_8" style="font-size: 45px"><a href="../../../index.html">Code Craft Of XD.Wang</a></h1>
+            <nav class="grid_8">
+                <ul id="menu-menu" class="menu">
+                    <li><a href="../../../index.html">主页</a></li>
+                    <li><a href="../../../page/list/blog.html">博客</a></li>
+                    <li><a href="../../../page/list/me.html">ME</a></li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</header>
+<div class="copyrights">作者：王贤兑</div>
+
+<!-- wrapper -->
+<div id="wrapper">
+    <div class="container_16">
+        <section id="posts" class="prefix_1 grid_9">
+
+            <article>
+                <h2>理解Java线程池</h2>
+                <p class="info">March 30th, 2017 | by <span><a href="#" rel="author">XD.Wang</a></span> | lang
+                </p>
+                <div class="time"><p>Mar<br><span>30</span></p></div>
+
+                <p></p>
+
+                <div class="text">
+                    <p><img src="../../../images/article/lang/1-1.jpg" height="250" width="510"></p>
+
+                    <h4>基础</h4>
+                    <p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在多线程程序设计中，系统可能需要开启大量的线程来支撑应用，当这些线程运行完毕后，
+                        系统需要回收相应的线程。虽然线程属于轻量级工具，但频繁的创建和关闭线程仍会造成大量的资源损耗。当线程执行的任务简单，
+                        但任务的数目较多时，甚至会出现管理线程的时间大于线程任务执行时间这样的情况。此外，为保证系统吞吐量和资源的合理使用，
+                        我们往往需要控制线程使用的系统资源。为了解决上述两种常见的业务场景，可以利用线程池来重复利用已创建好的线程。
+                    </p>
+                    <p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Java通过ThreadPoolExecutor类来定义线程池，通过Executors类来创建具有各种特性的线程池，
+                        Executors类相当于ThreadPoolExecutor的工厂，他可以创建具有以下特性的线程池：
+                    </p>
+                    <ul>
+                        <li><b>Executors.newFixedThreadPool(int nThreads)：</b>创建一个线程数目固定的线程池。当有新任务提交时，若线程池中有空闲线程，
+                            则利用这些空线程，否则任务进入一个队列等待。
+                        </li>
+                        <li><b>Executors.newSingleThreadExecutor()：</b>创建只有一个线程的线程执行器，当里面的线程处于运行状态时，新提交的任务进入队列等待。</li>
+                        <li><b>Executors.newCachedThreadPool()：</b>创建一个线程数量不确定的线程池，当池中有空闲线程时，使用这些线程，否则为这些新提交的任务
+                            创建新的线程。
+                        </li>
+                        <li><b>Executors.newSingleThreadExecutor()：</b>创建一个只有一个线程的线程执行器，它可以根据时间策略来执行任务，如每隔多久执行一次或者延时执行等。
+                        </li>
+                        <li><b>Executors.newScheduleThreadPool()：</b>创建一个线程池，它可以根据时间策略来执行任务，如每隔多久执行一次或者延时执行等。</li>
+                    </ul>
+                    <h4>高级特性</h4>
+                    <p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Executors配置出的ThreadPoolExecutor可用来执行作业，提高异步任务执行效率，把控系统资源的使用。
+                        ThreadPoolExecutor内部有很多配置参数，用户可以通过修改这些配置，满足Executors无法产生合适线程池时的场景。
+                        这些参数中，最重要的是核心线程数（corePoolSize）和最大线程数（maximumPoolSize）。当线程池中的线程少于核心线程数时，
+                        线程池会为到来的每个任务都创建一个新线程，即使当前池中有空闲线程；当线程池中的线程多于核心线程数且小于最大线程数时，新到来的任务将进入队列排队，
+                        等待空闲线程，当队列排满时，线程池才会继续创建新线程；当线程池中的线程大于最大线程数时，新到来的任务可能被拒绝。
+                    </p>
+                    <p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;核心线程数和最大线程数这两个参数含义浅显易懂，但需说明的是，当要创建固定线程数线程池时，
+                        需将两个参数都设置成期望的线程数；当要创建无界线程池时，只需将最大线程数设为一个巨大的值，如Integer.
+                        MAX _VALUE。
+                    </p>
+                    <p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;除了核心线程数和最大线程数这两个参数外，还有一个可能会用到的参数是线程存活时间（keepAliveTime），
+                        改值决定了线程在空闲多久后会被系统回收，如果想要创建一个在虚拟机退出前不被回收的线程，可将此参数设置成一个巨大的值，如Long.MAX_VALUE。
+                    </p>
+                    <p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ThreadPoolExecutor通过ThreadFactory来创建新的线程，若不设置ThreadFactory，
+                        则ThreadPoolExecutor会创建默认优先级的非守护线程，因此当用户想要定制产生的线程时，只需修改ThreadFactory的配置即可。
+                    </p>
+
+                    <h4>阻塞队列</h4>
+                    <p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;当线程池中的线程数大于核心线程数时，新提交的任务将进入队列等待。不同的队列实现配合不同的线程池大小可解决不同的业务场景，
+                        参考JDK的官方文档，线程池中的阻塞队列有有三个实现：Synchronous Queue、LinkedBlockingQueue和ArrayBlockingQueue。
+                    </p>
+                    <p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>SynchronousQueue:</b><br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SynchronousQueue的特点是，存取元素时，
+                        只有其他线程在做对应操作（一个线程存，则需要有个线程要取；或者一个线程取，则需要有个线程要存）时，才能完成存取，否则将阻塞。
+                        默认地，ThreadPoolExecutor采用这种队列来管理任务，当任务无法从队列中取得一个线程立即失败，构造一个新的线程来执行任务。
+                        <span class="emphasizeRed">此策略可以避免在处理可能具有内部依赖性的请求集时出现锁。</span>当使用这种队列时，
+                        需要为最大线程数指定一个相当大的值，防止因SynchronousQueue无法容纳线程而拒绝服务。
+                    </p>
+                    <p class="tipGreen">
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Tip：任务强依赖导致的死锁问题<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;当任务具有依赖关系时，如A执行依赖B的执行，若线程池有界则可能导致线程池中所有线程都在执行A，
+                        而B线程一直阻塞，A又依赖于B，最终形成一个锁死的状态。
+                    </p>
+                    <p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>LinkedBlockingQueue:</b><br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LinkedBlockingQueue没有长度限制，当线程池中的线程都在工作时，任务会进入队列一直等待。
+                        无界队列适合处理独立工作无依赖的任务，有效保证系统资源的安全性。
+                    </p>
+                    <p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>ArrayBlockingQueue:</b><br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ArrayBlockingQueue有长度限制，可以有效保护系统资源，但为避免不合适的拒绝服务，
+                        需要根据业务来确定合适的最大线程数和队列大小。使用大队列配合小的线程池可以最大程度的保证系统资源的安全性，降低CPU使用、
+                        资源上下文切换开销，但会影响系统的吞吐量。反之，可以增加CPU的利用率，提高吞吐量。不合理的扩大池容量会造成过大的资源耗损，
+                        也会减少系统的吞吐量，所以合理调配池和队列的大小非常重要。
+                    </p>
+
+                </div>
+                <div class="clear"></div>
+            </article>
+
+        </section>
+
+        <aside class="prefix_1 grid_5">
+
+            <!-- Categories-->
+            <h4>Categories</h4>
+            <ul class="categories">
+                <li><a href="../../../page/list/lang.html">语言</a></li>
+                <li><a href="../../../page/list/algorithm.html">算法</a></li>
+                <li><a href="../../../page/list/framework.html">框架</a></li>
+                <li><a href="../../../page/list/database.html">数据库</a></li>
+                <li><a href="../../../page/list/arch.html">架构</a></li>
+                <li><a href="../../../page/list/jvm.html">虚拟机</a></li>
+                <li><a href="../../../page/list/bigdata.html">大数据</a></li>
+                <li><a href="../../../page/list/tool.html">工具</a></li>
+            </ul>
+            <div class="clear"></div>
+            <hr>
+
+            <!-- article -->
+            <h4>Articles</h4>
+            <ul class="blogroll">
+                <li><a href="../../../page/article/database/1-1.html">MySql性能优化</a></li>
+                <li><a href="../../../page/article/database/1-2.html">Binary Log简介</a></li>
+                <li><a href="../../../page/article/arch/1-1.html">分布式服务框架概述</a></li>
+                <li><a href="../../../page/article/arch/1-2.html">通信框架设计：技术选型和可靠性</a></li>
+                <li><a href="../../../page/article/bigdata/1-1.html">Spark快速入门</a></li>
+                <li><a href="../../../page/article/jvm/1-1.html">JVM基础知识概述</a></li>
+                <li><a href="../../../page/article/jvm/1-2.html">理解Jva线程池</a></li>
+                <li><a href="#">最近发布</a></li>
+                <li><a href="#">最近发布</a></li>
+                <li><a href="#">最近发布</a></li>
+                <li><a href="#">最近发布</a></li>
+                <li><a href="#">最近发布</a></li>
+                <li><a href="#">最近发布</a></li>
+                <li><a href="#">最近发布</a></li>
+                <li><a href="#">最近发布</a></li>
+            </ul>
+            <hr>
+
+        </aside>
+    </div>
+</div>
+
+<!-- footer -->
+<footer>
+    <section id="footer_content">
+        <div class="container_12">
+
+        </div>
+    </section>
+    <section id="powered">
+        <div class="container_12">
+            <p class="grid_10"> code craft by <a href="https://lucifiere.github.io/"
+                                                 title="王贤兑的博客" target="_blank"> XD.Wang </a></p>
+            <p class="grid_2"><a class="top" href="#">▲ Back to top</a></p>
+        </div>
+    </section>
+</footer>
+</body>
+</html>
