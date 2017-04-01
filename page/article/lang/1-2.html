@@ -100,7 +100,8 @@
                         只有其他线程在做对应操作（一个线程存，则需要有个线程要取；或者一个线程取，则需要有个线程要存）时，才能完成存取，否则将阻塞。
                         默认地，ThreadPoolExecutor采用这种队列来管理任务，当任务无法从队列中取得一个线程立即失败，构造一个新的线程来执行任务。
                         <span class="emphasizeRed">此策略可以避免在处理可能具有内部依赖性的请求集时出现锁。</span>当使用这种队列时，
-                        需要为最大线程数指定一个相当大的值，防止因SynchronousQueue无法容纳线程而拒绝服务。
+                        需要为最大线程数指定一个相当大的值，防止因SynchronousQueue无法容纳线程而拒绝服务。实际生产中，需要注意当任务执行缓慢且提交过快时，
+                        系统会频繁创建线程，有可能很快耗尽系统资源，导致系统崩溃。
                     </p>
                     <p class="tip">
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Tip：任务强依赖导致的死锁问题<br>
@@ -117,18 +118,42 @@
                         资源上下文切换开销，但会影响系统的吞吐量。反之，可以增加CPU的利用率，提高吞吐量。不合理的扩大池容量会造成过大的资源耗损，
                         也会减少系统的吞吐量，所以合理调配池和队列的大小非常重要。
                     </p>
+                    <p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>PriorityBlockingQueue:</b><br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PriorityBlockingQueue无长度限制，它以任务优先级逆序执行任务，优先级高的任务会先执行。
+                        <span class="emphasizeRed">在任务重要性不一致时，优先级队列可有效保证系统的运行质量。</span>由于无界队列的只能使用核心线程数个线程，
+                        因此在任务提交频繁的场景下会造成大量任务积压，影响吞吐量，甚至耗尽内存。
+                    </p>
 
                     <h4>拒绝服务</h4>
                     <p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;上文已经提到过，当线程池中的线程达最大线程数，或者线程池被关闭时，线程池将拒绝继续服务。
-                        这种情况下，execute方法将调用Rejected ExceptionHandler接口的方法进行补救。用户可以自己实现该接口定义补救逻辑，
+                        这种情况下，execute方法将调用Rejected ExceptionHandler接口的方法进行补救。用户可实现该接口以自定义补救逻辑，
                         也可使用既定的几种JDK定义的策略：
                     </p>
                     <ol>
-                        <li><b>ThreadPoolExecutor.AbortPolicy：</b>抛出运行时异常RejectedExecution Exception</li>
+                        <li><b>ThreadPoolExecutor.AbortPolicy：</b>抛出运行时异常RejectedExecution Exception，阻止系统继续工作。</li>
                         <li><b>ThreadPoolExecutor.CallerRunsPolicy：</b>该策略将减缓线程池接收任务的频率</li>
                         <li><b>ThreadPoolExecutor.DiscardPolicy：</b>该策略将被拒绝的任务删除</li>
-                        <li><b>ThreadPoolExecutor.DiscardPolicy：</b>移除工作队列头部的任务</li>
+                        <li><b>ThreadPoolExecutor.DiscardPolicy：</b>移除工作队列头部（最老的请求）的任务</li>
                     </ol>
+
+                    <h4>其他</h4>
+                    <p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>线程创建：</b>ThreadPoolExecutor通过ThreadFactory接口来创建线程，该接口只有一个方法：
+                        newThread(Runnable r)，线程池通过该方法来创建新的线程。我们可在newThread方法里面自定义某种逻辑，如为线程设置优先级、
+                        定义是否为守护线程、输出日志等。
+                    </p>
+                    <p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>线程池扩展：</b>ThreadPoolExecutor允许用户在任务开始前、结束后以及线程池退出时通过beforeExecute()、
+                        afterExecute()方法和terminated()来自定义前后置逻辑和线程池关闭逻辑。
+                    </p>
+
+                    <h4>经验</h4>
+                    <p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;一般而言，使用Executors产生的线程池、或者自定义参数设置正常（与业务场景偏差太大，
+                        线程太多或过少）的线程池，都不会造成严重的性能问题。《Java并发编程实战》一书中提到过一套线程池设置的指导理论：
+                    </p>
+
+                    <p class="tip">
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;线程池大小计算公式：<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;线程池大小 = CPU数量 * CPU使用率 * (任务等待时间 / 任务执行时间 + 1)
+                    </p>
 
                 </div>
                 <div class="clear"></div>
