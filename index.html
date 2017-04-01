@@ -41,99 +41,107 @@
         <section id="posts" class="prefix_1 grid_9">
 
             <article>
-                <h2><a href="page/article/bigdata/1-1.html">Spark快速入门</a></h2>
-                <p class="info">March 6th, 2017 | by <span><a href="#" rel="author">XD.Wang</a></span> | <a href="page/list/bigdata.html"
-                                                                                                                rel="category">bigdata</a>
+                <h2><a href="page/article/lang/1-2.html">理解Java线程池</a></h2>
+                <p class="info">March 30th, 2017 | by <span><a href="#" rel="author">XD.Wang</a></span> | <a
+                        href="page/list/lang.html"
+                        rel="category">lang</a>
                 </p>
-                <div class="time"><p>Mar<br><span>6</span></p></div>
+                <div class="time"><p>Mar<br><span>30</span></p></div>
+
+                <p></p>
+
+                <div class="entry">
+                    <p><img src="images/article/lang/1-1.jpg" height="200" width="500"></p>
+                    <p class="text"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;线程池可以解决两个不同问题：由于减少了每个任务调用的开销，
+                        它们通常可以在执行大量异步任务时提供增强的性能，并且还可以提供绑定和管理资源（包括执行任务集时使用的线程）的方法。
+                        每个 ThreadPoolExecutor 还维护着一些基本的统计数据，如完成的任务数。
+                    </p>
+                    <p><a href="page/article/lang/1-2.html" class="more-link">阅读全文</a></p>
+                </div>
+                <div class="clear"></div>
+            </article>
+
+            <article>
+                <h2><a href="page/article/lang/1-1.html">ReentrantLock使用指南</a></h2>
+                <p class="info">March 29th, 2017 | by <span><a href="#" rel="author">XD.Wang</a></span> | <a
+                        href="page/list/lang.html"
+                        rel="category">lang</a>
+                </p>
+                <div class="time"><p>Mar<br><span>29</span></p></div>
+
+                <p></p>
+
+                <div class="entry">
+                    <p><img src="images/article/lang/1-1.jpg" height="200" width="500"></p>
+                    <p class="text"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;java.util.concurrent.lock 中的 Lock 框架是锁定的一个抽象，
+                        它允许把锁定的实现作为 Java 类，而不是作为语言的特性来实现。这就为 Lock 的多种实现留下了空间，
+                        各种实现可能有不同的调度算法、性能特性或者锁定语义。 ReentrantLock 类实现了 Lock ，它拥有与synchronized相同的并发性和内存语义，
+                        但是添加了类似锁投票、定时锁等候和可中断锁等候的一些特性。此外，它还提供了在激烈争用情况下更佳的性能。</p>
+                    <p><a href="page/article/lang/1-1.html" class="more-link">阅读全文</a></p>
+                </div>
+                <div class="clear"></div>
+            </article>
+
+            <article>
+                <h2><a href="page/article/jvm/1-2.html">Java关键字实现原理</a></h2>
+                <p class="info">March 20th, 2017 | by <span><a href="#" rel="author">XD.Wang</a></span> | <a
+                        href="page/list/jvm.html"
+                        rel="category">jvm</a>
+                </p>
+                <div class="time"><p>Mar<br><span>20</span></p></div>
+
+                <p></p>
+
+                <div class="entry">
+                    <p><img src="images/article/jvm/1-1.jpg" height="200" width="500"></p>
+                    <p class="text"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;了解Java关键字的底层实现原理有助于我们进一步理解JVM的工作方式。
+                        在Java高级程序员面试时，Java关键词的底层原理也是常考的知识点之一。</p>
+                    <p><a href="page/article/jvm/1-2.html" class="more-link">阅读全文</a></p>
+                </div>
+                <div class="clear"></div>
+            </article>
+
+            <article>
+                <h2><a href="page/article/bigdata/1-1.html">Spark共享变量</a></h2>
+                <p class="info">March 15th, 2017 | by <span><a href="#" rel="author">XD.Wang</a></span> | <a
+                        href="page/list/bigdata.html"
+                        rel="category">bigdata</a>
+                </p>
+                <div class="time"><p>Mar<br><span>15</span></p></div>
 
                 <p></p>
 
                 <div class="entry">
                     <p><img src="images/article/bigdata/1-1.jpg" height="200" width="500"></p>
-                    <p class="text"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Spark发源于AMPLab实验室的分布式内存计算平台，用于大数据运算，它克服了MapReduce在迭代式计算和交互式计算方面的不足。
-                        相比于传统的Map Reduce，Spark能充分利用内存资源提高计算效率</p>
-                    <p><a href="page/article/bigdata/1-1.html" class="more-link">阅读全文</a></p>
+                    <p class="text"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;spark编程中，广播变量允许程序员将一个只读的变量缓存在每台机器上，
+                        而不用在任务之间传递变量。而累加器被用于支持纯粹累加的场景。</p>
+                    <p><a href="page/article/bigdata/1-2.html" class="more-link">阅读全文</a></p>
                 </div>
                 <div class="clear"></div>
             </article>
 
             <article>
-                <h2><a href="page/article/arch/1-2.html">通信框架设计：技术选型和可靠性</a></h2>
-                <p class="info">February 23th, 2017 | by <span><a href="#" rel="author">XD.Wang</a></span> | <a href="page/list/arch.html"
-                                                                                                                rel="category">arch</a>
+                <h2><a href="page/article/jvm/1-1.html">JVM基础知识概述</a></h2>
+                <p class="info">March 13th, 2017 | by <span><a href="#" rel="author">XD.Wang</a></span> | <a
+                        href="page/list/jvm.html"
+                        rel="category">jvm</a>
                 </p>
-                <div class="time"><p>Feb<br><span>23</span></p></div>
+                <div class="time"><p>Mar<br><span>13</span></p></div>
 
                 <p></p>
 
                 <div class="entry">
-                    <p><img src="images/article/arch/1-2.jpg" height="200" width="500"></p>
-                    <p class="text"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在设计通信框架时，我们需要考虑的问题包括但不限于:连接类型、通信模式、框架选择</p>
-                    <p><a href="page/article/arch/1-2.html" class="more-link">阅读全文</a></p>
+                    <p><img src="images/article/jvm/1-1.jpg" height="200" width="500"></p>
+                    <p class="text"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;JVM是Java Virtual Machine（Java虚拟机）的缩写，
+                        JVM是一种用于计算设备的规范，它是一个虚构出来的计算机，是通过在实际的计算机上仿真模拟各种计算机功能来实现的。</p>
+                    <p><a href="page/article/jvm/1-1.html" class="more-link">阅读全文</a></p>
                 </div>
-                <div class="clear"></div>
-            </article>
-
-            <article>
-                <h2><a href="page/article/arch/1-1.html">分布式服务框架概述</a></h2>
-                <p class="info">February 21th, 2017 | by <span><a href="#" rel="author">XD.Wang</a></span> | <a href="page/list/arch.html"
-                                                                                                                rel="category">arch</a>
-                </p>
-                <div class="time"><p>Feb<br><span>21</span></p></div>
-
-                <p></p>
-
-                <div class="entry">
-                    <p><img src="images/article/arch/1-1.jpg" height="200" width="500"></p>
-                    <p class="text"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;此篇博客简单概括了分布式服务框架分析设计的几个要点，
-                        使初学者对其有一个宏观的认识。</p>
-                    <p><a href="page/article/arch/1-1.html" class="more-link">阅读全文</a></p>
-                </div>
-                <div class="clear"></div>
-            </article>
-
-            <article>
-                <h2><a href="page/article/database/1-2.html">Binary Log 简介</a></h2>
-                <p class="info">February 13th, 2017 | by <span><a href="#" rel="author">XD.Wang</a></span> | <a href="page/list/database.html"
-                                                                                                                rel="category">database</a>
-                </p>
-                <div class="time"><p>Feb<br><span>13</span></p></div>
-
-                <p></p>
-
-                <div class="entry">
-                    <p><img src="images/article/database/1-1.png" height="200" width="500"></p>
-                    <p class="text"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Binary Log记录了备份后进行的所有更新，因此可保证数据能恢复到故障出现前的状态，
-                        此外，在数据库做读写分离后，从服务器可通过Binary Log读取到主服务器的更新，同步自己的数据。</p>
-                    <p><a href="page/article/database/1-2.html" class="more-link">阅读全文</a></p>
-                </div>
-                <div class="clear"></div>
-            </article>
-
-            <article>
-                <h2><a href="page/article/database/1-1.html">MySql性能优化</a></h2>
-                <p class="info">February 10th, 2017 | by <span><a href="#" rel="author">XD.Wang</a></span> | <a href="page/list/database.html"
-                                                                                                                rel="category">database</a>
-                </p>
-                <div class="time"><p>Feb<br><span>10</span></p></div>
-
-                <p></p>
-
-                <div class="entry">
-                    <p><img src="images/article/database/1-1.png" height="200" width="500"></p>
-                    <p class="text"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;当MySql单表记录达一亿以上时，不当的数据操作可能引起较为严重的性能问题。针对具体问
-                        题进行有效的性能优化，是每个Java工程师必须具备的能力。</p>
-                    <p><a href="page/article/database/1-1.html" class="more-link">阅读全文</a></p>
-                </div>
-                <div class="clear"></div>
-
                 <div class="clear"></div>
             </article>
 
             <div align="center" style="font-size: medium; ">
                 <a href="index.html" style="color: gray">0</a>
-                <a href="page/digest/1.html" style="color: gray">1</a>
+                <a href="1.html" style="color: gray">1</a>
             </div>
 
         </section>
