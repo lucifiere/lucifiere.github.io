@@ -42,50 +42,20 @@
         <section id="posts" class="prefix_1 grid_9">
 
             <article>
-                <h2>ReentrantLock使用指南</h2>
-                <p class="info">March 29th, 2017 | by <span><a href="#" rel="author">XD.Wang</a></span> | lang
+                <h2>线程安全容器类</h2>
+                <p class="info">April 1st, 2017 | by <span><a href="#" rel="author">XD.Wang</a></span> | lang
                 </p>
-                <div class="time"><p>Mar<br><span>29</span></p></div>
+                <div class="time"><p>Apr<br><span>1</span></p></div>
 
                 <p></p>
 
                 <div class="text">
-                    <p><img src="../../../images/article/lang/1-1.jpg" height="250" width="510"></p>
+                    <p><img src="../../../images/article/lang/1-2.jpg" height="250" width="510"></p>
 
-                    <h4>基本用法</h4>
-                    <p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ReentrantLock是Java并发编程中常用的同步工具，它通过显式的加锁过程，灵活的控制着临界区的同步访问。
-                        ReentrantLock之所以叫可重入锁，是因为它允许一个线程多次获取同一把锁。在JDK 1.6版本前Reentrant Lock的性能远胜于Synchronized关键字，
-                        随着JDK 1.6中对Synchronized策略的优化，从性能角度来说两种方案基本持平，但对比功能性和灵活性，ReentrantLock更胜一筹。
+                    <h4>并发集合</h4>
+                    <p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>SynchronizedMap:</b><br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SynchronizedMap持有一个HashMap对象，用来进行数据存取，
                     </p>
-                    <ul>
-                        <li><b>reentrantLock.lock()：</b>获取锁。若锁计数为0，且第一次请求锁则获取锁，且锁计数器加一；若锁计数不为0，
-                            非第一次请求锁则保持锁，且锁计数器加一；若锁计数不为0，且第一次请求锁则当前线程进入休眠状态，直到锁可获取。
-                        </li>
-                        <li><b>reentrantLock.unlock()：</b>释放锁。若锁计数为0，则抛出IllegalMonitorState Exception异常，否则锁计数器减一</li>
-                    </ul>
-                    <h4>高级特性</h4>
-                    <p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;一般而言，线程尝试获取锁时会有两种情况，获取、阻塞，但Reentrant Lock允许线程响应中断，
-                        从而取消获取锁。如需响应中断，获取锁时需要调用lockInterruptibly方法而非lock方法。
-                    </p>
-                    <p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;响应中断可以处理死锁问题，除了响应中断外，限时等待也是处理死锁的一个利器。ReentrantLock允许线程进行有期限的锁等待，
-                        用户可以定义在锁获取失败时的逻辑动作，使代码更加健壮。
-                    </p>
-                    <p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如果使用Synchronized来加锁，锁的获取是无法保证公平的，
-                        调度系统将随机指定某个线程获取锁，极端情况下，某些线程会一直获取不到锁，产生饥饿。ReentrantLock允许通过构造方法来产生一个公平锁，按先到先得的顺序来进行锁的分配。
-                        由于ReentrantLock要维护一个队列来支持公平性，性能肯定就会有所降低，因此若非必要，不应乱用公平锁。
-                    </p>
-                    <p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Synchronized可以通过wait和notify控制线程的等待和唤醒，条件锁也有类似的机制，
-                        它通过Condition对象来改变线程的状态，让线程交出锁的使用权并等待，直到别的线程唤醒它，或者唤醒其他等待的线程。
-                    </p>
-                    <ul>
-                        <li><b>reentrantLock.lockInterruptibly()：</b>获取可中断锁。</li>
-                        <li><b>reentrantLock.tryLock(long time，TimeUnit timeUnit)：</b>在指定时间内获取锁，获取成功返回true。</li>
-                        <li><b>ReentrantLock(boolean isFair)：</b>是否启用公平锁。</li>
-                        <li><b>reentrantLock.newCondition()：</b>为该锁创建一个Condition。</li>
-                        <li><b>condition.await()：</b>使当前线程等待。</li>
-                        <li><b>condition.signal()：</b>唤醒一个线程。</li>
-                        <li><b>condition.signalAll()：</b>唤醒所有等待线程。</li>
-                    </ul>
 
                 </div>
                 <div class="clear"></div>
