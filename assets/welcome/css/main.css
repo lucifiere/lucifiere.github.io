@@ -43,7 +43,6 @@ body {
     }
 
     .img-rabbit {
-        width: 585px;
     }
 
     .btn-group-vertical {
@@ -68,8 +67,8 @@ body {
 }
 
 .img-rabbit {
-    width: 100%;
-    height: 833px;
+    width: 80%;
+    height: 100%;
 }
 
 .btn-rabbit {
