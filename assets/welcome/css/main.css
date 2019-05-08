@@ -1,6 +1,6 @@
 body {
     background-color: #f9f9f9;
-    font-family: "Crimson Text";
+    font-family: "Crimson Text", serif;
 }
 
 .main {
@@ -10,7 +10,7 @@ body {
 .home-description {
     font-style: normal;
     font-weight: 600;
-    font-family: "Crimson";
+    font-family: "Crimson", serif;
     font-size: 19px;
     padding-top: 15px;
     padding-bottom: 25px;
@@ -31,8 +31,8 @@ body {
 
 .social a:hover i {
     color: #fff;
-    border-color: #bb9e7d;
-    background-color: #bb9e7d;
+    border-color: dimgrey;
+    background-color: dimgrey;
 }
 
 
@@ -85,8 +85,8 @@ body {
 
 .btn-rabbit:hover {
     color: #fff;
-    background-color: #bb9e7d;
-    border-color: #bb9e7d;
+    background-color: dimgrey;
+    border-color: dimgrey;
 }
 
 p {
@@ -97,10 +97,9 @@ p {
 
 .page-title {
     text-transform: uppercase;
-    font-family: 'Josefin Sans';
+    font-family: 'Josefin Sans', serif;
 }
 
-/*Home Style*/
 .logo {
     padding-top: 100px;
     text-transform: uppercase;
@@ -108,7 +107,7 @@ p {
 }
 
 .logo h4 {
-    font-family: 'Josefin Sans';
+    font-family: 'Josefin Sans', serif;
 }
 
 
@@ -169,13 +168,11 @@ footer {
 }
 
 .btn-group-vertical {
-    font-family: "Josefin Sans";
+    font-family: "Josefin Sans", serif;
 }
 
 .about {
-    font-family: "Josefin Sans";
-    /*margin-top: 35px;*/
-    /*margin-bottom: 25px;*/
+    font-family: "Josefin Sans", serif;
     font-size: 32px;
 
 }
@@ -183,22 +180,22 @@ footer {
 .form-control {
     font-style: normal;
     border-radius: 0;
-    font-family: "Crimson";
+    font-family: "Crimson", serif;
     font-size: 16px;
 }
 
 .page-title {
     font-size: 32px;
-    font-family: "Josefin Sans";
+    font-family: "Josefin Sans", serif;
 }
 
 .fa-heartbeat {
-    color: #bb9e7d;
+    color: dimgrey;
 }
 
 ::selection {
     color: #fff;
-    background-color: #bb9e7d;
+    background-color: dimgrey;
 }
 
 .bottom {
@@ -224,7 +221,7 @@ footer {
 }
 
 .submit {
-    font-family: "Crimson";
+    font-family: "Crimson", serif;
     font-size: 16px;
 }
 
@@ -234,7 +231,7 @@ footer {
     font-size: 20px;
     color: #3b3b3b;
     line-height: 28px;
-    font-family: "Crimson";
+    font-family: "Crimson", serif;
     margin-top: 15px;
     margin-bottom: 20px;
     padding-right: 40px;
@@ -256,7 +253,7 @@ footer {
     position: absolute;
     font-size: 60px;
     opacity: 0.1;
-    font-family: "Josefin Sans";
+    font-family: "Josefin Sans", serif;
     text-transform: uppercase;
     left: 0;
     top: -5px;
@@ -302,10 +299,10 @@ footer {
 
 .owl-theme .owl-controls .owl-nav [class*=owl-] {
     position: absolute;
-    border-radius: 0px;
+    border-radius: 0;
     font-size: 21px;
     padding: 15px 20px;
-    margin: 0px;
+    margin: 0;
     background-color: #fff;
 
 }
@@ -316,8 +313,8 @@ footer {
 }
 
 .owl-theme .owl-controls .owl-nav [class*=owl-]:hover {
-    background-color: #bb9e7d;
-    border-color: #bb9e7d;
+    background-color: dimgrey;
+    border-color: dimgrey;
 }
 
 .owl-theme .owl-controls .owl-nav [class*=owl-]:hover i {
