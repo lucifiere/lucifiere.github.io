@@ -1,207 +1,148 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-    <!-- title -->
-    <title>王贤兑的技术博客</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <!-- meta -->
-    <meta charset="UTF-8">
+    <title>Rabbit : Home</title>
+    <link rel="icon" type="image/icon" href="assets/welcome/images/tabicon.ico">
 
-    <!-- links -->
-    <link rel="stylesheet" type="text/css" media="screen" href="./css/style.css">
-
-    <!-- scripts -->
-
-    <!-- IE Hacks -->
-    <!--[if IE]>
-    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+    <link rel="stylesheet" type="text/welcome/css" href="">
+    <link href="assets/welcome/css/bootstrap.min.css" rel="stylesheet">
+    <link href="assets/welcome/css/bootstrap-theme.min.css" rel="stylesheet">
+    <link href="assets/welcome/css/font-awesome.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/welcome/css?family=Open+Sans:400,400i,600,700,700i" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/welcome/css?family=Crimson+Text:400,700,700i|Josefin+Sans:700"
+          rel="stylesheet">
+    <link href="assets/welcome/css/main.css" rel="stylesheet">
+    <link rel="icon" href="assets/welcome/images/logo.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
 </head>
-<body class="home blog">
 
-<!-- header -->
-<header>
-    <div id="light">
-        <div class="container_16">
-            <h1 class="grid_8" style="font-size: 45px"><a href="./index.html">Code Craft Of XD.Wang</a></h1>
-            <nav class="grid_8">
-                <ul id="menu-menu" class="menu">
-                    <li><a href="page/list/blog.html">博客</a></li>
-                    <li><a href="page/list/me.html">ME</a></li>
-                </ul>
-            </nav>
-        </div>
-    </div>
-</header>
-<div class="copyrights">作者：王贤兑</div>
-
-<!-- wrapper -->
-<div id="wrapper">
-    <div class="container_16">
-        <section id="posts" class="prefix_1 grid_9">
-
-            <article>
-                <h2><a href="page/article/lang/1-2.html">理解Java线程池</a></h2>
-                <p class="info">March 30th, 2017 | by <span><a href="#" rel="author">XD.Wang</a></span> | <a
-                        href="page/list/lang.html"
-                        rel="category">lang</a>
-                </p>
-                <div class="time"><p>Mar<br><span>30</span></p></div>
-
-                <p></p>
-
-                <div class="entry">
-                    <p><img src="images/article/lang/1-1.jpg" height="200" width="500"></p>
-                    <p class="text"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;线程池可以解决两个不同问题：由于减少了每个任务调用的开销，
-                        它们通常可以在执行大量异步任务时提供增强的性能，并且还可以提供绑定和管理资源（包括执行任务集时使用的线程）的方法。
-                        每个 ThreadPoolExecutor 还维护着一些基本的统计数据，如完成的任务数。
-                    </p>
-                    <p><a href="page/article/lang/1-2.html" class="more-link">阅读全文</a></p>
-                </div>
-                <div class="clear"></div>
-            </article>
-
-            <article>
-                <h2><a href="page/article/lang/1-1.html">ReentrantLock使用指南</a></h2>
-                <p class="info">March 29th, 2017 | by <span><a href="#" rel="author">XD.Wang</a></span> | <a
-                        href="page/list/lang.html"
-                        rel="category">lang</a>
-                </p>
-                <div class="time"><p>Mar<br><span>29</span></p></div>
-
-                <p></p>
-
-                <div class="entry">
-                    <p><img src="images/article/lang/1-1.jpg" height="200" width="500"></p>
-                    <p class="text"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;java.util.concurrent.lock 中的 Lock 框架是锁定的一个抽象，
-                        它允许把锁定的实现作为 Java 类，而不是作为语言的特性来实现。这就为 Lock 的多种实现留下了空间，
-                        各种实现可能有不同的调度算法、性能特性或者锁定语义。 ReentrantLock 类实现了 Lock ，它拥有与synchronized相同的并发性和内存语义，
-                        但是添加了类似锁投票、定时锁等候和可中断锁等候的一些特性。此外，它还提供了在激烈争用情况下更佳的性能。</p>
-                    <p><a href="page/article/lang/1-1.html" class="more-link">阅读全文</a></p>
-                </div>
-                <div class="clear"></div>
-            </article>
-
-            <article>
-                <h2><a href="page/article/jvm/1-2.html">Java关键字实现原理</a></h2>
-                <p class="info">March 20th, 2017 | by <span><a href="#" rel="author">XD.Wang</a></span> | <a
-                        href="page/list/jvm.html"
-                        rel="category">jvm</a>
-                </p>
-                <div class="time"><p>Mar<br><span>20</span></p></div>
-
-                <p></p>
-
-                <div class="entry">
-                    <p><img src="images/article/jvm/1-1.jpg" height="200" width="500"></p>
-                    <p class="text"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;了解Java关键字的底层实现原理有助于我们进一步理解JVM的工作方式。
-                        在Java高级程序员面试时，Java关键词的底层原理也是常考的知识点之一。</p>
-                    <p><a href="page/article/jvm/1-2.html" class="more-link">阅读全文</a></p>
-                </div>
-                <div class="clear"></div>
-            </article>
-
-            <article>
-                <h2><a href="page/article/bigdata/1-1.html">Spark共享变量</a></h2>
-                <p class="info">March 15th, 2017 | by <span><a href="#" rel="author">XD.Wang</a></span> | <a
-                        href="page/list/bigdata.html"
-                        rel="category">bigdata</a>
-                </p>
-                <div class="time"><p>Mar<br><span>15</span></p></div>
-
-                <p></p>
-
-                <div class="entry">
-                    <p><img src="images/article/bigdata/1-1.jpg" height="200" width="500"></p>
-                    <p class="text"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;spark编程中，广播变量允许程序员将一个只读的变量缓存在每台机器上，
-                        而不用在任务之间传递变量。而累加器被用于支持纯粹累加的场景。</p>
-                    <p><a href="page/article/bigdata/1-2.html" class="more-link">阅读全文</a></p>
-                </div>
-                <div class="clear"></div>
-            </article>
-
-            <article>
-                <h2><a href="page/article/jvm/1-1.html">JVM基础知识概述</a></h2>
-                <p class="info">March 13th, 2017 | by <span><a href="#" rel="author">XD.Wang</a></span> | <a
-                        href="page/list/jvm.html"
-                        rel="category">jvm</a>
-                </p>
-                <div class="time"><p>Mar<br><span>13</span></p></div>
-
-                <p></p>
-
-                <div class="entry">
-                    <p><img src="images/article/jvm/1-1.jpg" height="200" width="500"></p>
-                    <p class="text"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;JVM是Java Virtual Machine（Java虚拟机）的缩写，
-                        JVM是一种用于计算设备的规范，它是一个虚构出来的计算机，是通过在实际的计算机上仿真模拟各种计算机功能来实现的。</p>
-                    <p><a href="page/article/jvm/1-1.html" class="more-link">阅读全文</a></p>
-                </div>
-                <div class="clear"></div>
-            </article>
-
-            <div align="center" style="font-size: medium; ">
-                <a href="index.html" style="color: gray">0</a>
-                <a href="1.html" style="color: gray">1</a>
-                <a href="2.html" style="color: gray">2</a>
+<!-- 欢迎页首页 -->
+<body>
+<div id="index">
+    <div class="container main">
+        <div class="row home">
+            <div id="index_left" class="col-md-6 left">
+                <img class="img-responsive img-rabbit" style="height: 833px;" src="assets/welcome/images/index1.JPG"
+                     alt="">
             </div>
-
-        </section>
-
-        <aside class="prefix_1 grid_5">
-
-            <!-- Categories-->
-            <h4>Categories</h4>
-            <ul class="categories">
-                <li><a href="page/list/lang.html">语言</a></li>
-                <li><a href="page/list/algorithm.html">算法</a></li>
-                <li><a href="page/list/framework.html">框架</a></li>
-                <li><a href="page/list/database.html">数据库</a></li>
-                <li><a href="page/list/arch.html">架构</a></li>
-                <li><a href="page/list/jvm.html">虚拟机</a></li>
-                <li><a href="page/list/arch.html">大数据</a></li>
-                <li><a href="page/list/jvm.html">工具</a></li>
-            </ul>
-            <div class="clear"></div>
-            <hr>
-
-            <!-- article -->
-            <h4>Articles</h4>
-            <ul class="blogroll">
-                <li><a href="page/article/database/1-1.html">MySql性能优化</a></li>
-                <li><a href="page/article/database/1-2.html">Binary Log简介</a></li>
-                <li><a href="page/article/arch/1-1.html">分布式服务框架概述</a></li>
-                <li><a href="page/article/arch/1-2.html">通信框架设计：技术选型和可靠性</a></li>
-                <li><a href="page/article/bigdata/1-1.html">Spark快速入门</a></li>
-                <li><a href="page/article/jvm/1-1.html">JVM基础知识概述</a></li>
-                <li><a href="page/article/lang/1-2.html">理解Java线程池</a></li>
-                <li><a href="page/article/bigdata/1-3.html">Spark任务执行的基本原理</a></li>
-                <li><a href="#">最近发布</a></li>
-                <li><a href="#">最近发布</a></li>
-                <li><a href="#">最近发布</a></li>
-                <li><a href="#">最近发布</a></li>
-                <li><a href="#">最近发布</a></li>
-                <li><a href="#">最近发布</a></li>
-            </ul>
-            <hr>
-
-        </aside>
+            <div id="index_right" class="col-md-6 text-center right">
+                <div class="logo">
+                    <img src="assets/welcome/images/logo.png" style="width: 150px;height: 75px" alt="">
+                </div>
+                <p class="home-description">
+                    唯有写作<br>
+                    即是困顿里的正信<br>
+                    也是游方时的袈裟<br>
+                </p>
+                <div class="btn-group-vertical custom_btn animated slideinright">
+                    <div id="about" class="btn btn-rabbit">ME</div>
+                    <div id="work" class="btn btn-rabbit">技术</div>
+                    <div id="contact" class="btn btn-rabbit">生活</div>
+                </div>
+                <div class="social">
+                    <a href="#"><i class="fa fa-pinterest" aria-hidden="true"></i></a>
+                    <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                    <a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
-<!-- footer -->
-<footer>
-    <section id="footer_content">
-        <div class="container_12">
+<!-- 个人 -->
+<div id="about_scroll" class="pages ">
+    <div class="container main">
+        <div class="row">
+            <div class="col-md-6 left" id="about_left">
+                <img class="img-responsive img-rabbit" src="assets/welcome/images/me.JPG" alt="">
+            </div>
 
+            <div class="col-md-6 right" id="about_right">
+                <a href="#index" class="btn btn-rabbit back"> <i class="fa fa-angle-left" aria-hidden="true"></i> 回到主页
+                </a>
+                <div id="watermark">
+                    <h2 class="page-title">M.E</h2>
+                    <div class="marker">XD.Wang</div>
+                </div>
+                <p class='subtitle'>我.
+                </p>
+                <p class="info">
+                    XD.Wang<br>
+                    西大毕业，码农一枚<br>
+                    爱淘音乐，好打游戏。 听歌无所不包，喷人不分敌友<br>
+                    好吃佬，喜欢火锅烧烤<br>
+                    不将就，事儿多，能吹又能装<br>
+                    心里还有小本本<br>
+                    ~ ~<br>
+                    说完<br>
+                    总结下<br>
+                    这是个好人<br>
+                </p>
+            </div>
         </div>
-    </section>
-    <section id="powered">
-        <div class="container_12">
-            <p class="grid_10"> code craft by <a href="https://lucifiere.github.io/"
-                                                                             title="王贤兑的博客" target="_blank"> XD.Wang </a></p>
-            <p class="grid_2"><a class="top" href="#">▲ Back to top</a></p>
+    </div>
+</div>
+
+<!-- 技术博客 -->
+<div id="work_scroll" class="pages">
+    <div class="container main">
+        <div class="row">
+            <div class="col-md-6" id="work_left">
+                <div class="item"><img class="img-responsive img-rabbit" src="assets/welcome/images/tech.JPG" alt="">
+                </div>
+            </div>
+
+            <div class="col-md-6" id="work_right">
+                <a href="#index" class="btn btn-rabbit back"> <i class="fa fa-angle-left" aria-hidden="true"></i>
+                    回到主页</a>
+                <a href="#index" class="btn btn-rabbit toward" style="padding: 10px 0 0 20px;">
+                    前往技术博客 <i class="fa fa-angle-right" style="margin-left: 15px" aria-hidden="true"></i></a>
+                <div id="watermark">
+                    <h2 class="page-title">技术</h2>
+                    <div class="marker">TECH BLOG</div>
+                </div>
+                <p class='subtitle'>不积跬步，无以至千里</p>
+                <p class="info">技术博客<br>
+                    对学过的知识进行总结升华，并形成系统的知识体系<br>
+                    提高兴趣和效率，写技术博客让自己有成就感<br>
+                    私人知识清单<br>
+                </p>
+            </div>
         </div>
-    </section>
-</footer>
+    </div>
+</div>
+
+<!-- 个人博客 -->
+<div id="contact_scroll" class="pages">
+    <div class="container main">
+        <div class="row">
+            <div class="col-md-6 left" id="contact_left">
+                <img class="img-responsive img-rabbit" src="assets/welcome/images/life.JPG">
+            </div>
+
+            <div class="col-md-6 right" id="contact_right">
+                <a href="#index" class="btn btn-rabbit back"> <i class="fa fa-angle-left" aria-hidden="true"></i> 回到主页
+                </a>
+                <a href="#index" class="btn btn-rabbit toward" style="padding: 10px 0 0 20px;">
+                    前往个人博客 <i class="fa fa-angle-right" style="margin-left: 15px" aria-hidden="true"></i></a>
+                <div id="watermark">
+                    <h2 class="page-title">生活</h2>
+                    <div class="marker">MY LIFE</div>
+                </div>
+                <p class='subtitle'>光阴俯就，已历数秋<br>人来人往，莫失莫忘</p>
+                <p class="info">
+                </p>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="assets/welcome/js/jquery-3.1.0.min.js"></script>
+    <script src="assets/welcome/js/bootstrap.min.js"></script>
+    <script src="assets/welcome/js/script.js"></script>
 </body>
 </html>
