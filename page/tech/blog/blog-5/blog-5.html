@@ -1,4 +1,3 @@
-
 <!doctype html>
 <html lang="zh">
 <head>
@@ -25,7 +24,6 @@
     <link rel="stylesheet" href="/assets/tech/css/jquery.fancybox-1.3.4.css" type="text/css" media="screen"/>
 </head>
 <body>
-
 
 <input type="hidden" value="BLOG" id="navType">
 
@@ -75,10 +73,10 @@
                         <p style="font-size: 14px">&nbsp;&nbsp;&nbsp;保持系统高可用的主要手段有负载均衡、隔离、降级和限流等，本文讨论下负载均衡的思路与实现。</p>
                     </div>
                     <div>
-                        <p style="font-size: 14px">&nbsp;&nbsp;&nbsp;负载均衡可使外部流量按特定算法分布到不同的处理单元。根据网络栈结构，负载均衡可在第二层、第四层和第七层实现，对于软件开发同学来说，一般只需要关心应用层的实现细节。</p>
+                        <p style="font-size: 14px">&nbsp;&nbsp;&nbsp;负载均衡可使外部流量按特定算法分布到不同的处理单元。根据网络栈结构，负载均衡可在第二层、第四层和第七层实现，对于普通开发同学来说，只需要关心应用层的实施细节。</p>
                     </div>
                     <div>
-                        <p style="font-size: 14px">&nbsp;&nbsp;&nbsp;应用层负载均衡通常基于Nginx实现，接下来说说配置重点和具体细节。</p>
+                        <p style="font-size: 14px">&nbsp;&nbsp;&nbsp;应用层负载均衡通常基于Nginx实现，本文将讲解Nginx关于负载均衡的配置重点及具体细节。</p>
                     </div>
                 </div>
                 <div>
@@ -88,7 +86,7 @@
                         <p style="font-size: 14px">&nbsp;&nbsp;&nbsp;Nginx的上游服务器配置通过调整upstream模块server的参数完成，其中，较为重要的属性是：</p>
                     </div>
                     <div>
-                        <p style="font-size: 14px">&nbsp;&nbsp;&nbsp;weight：调整此服务的权重。权重高的服务器将承受更多流量，一般性能越位强劲的机器（如物理机、高配虚拟机、高配容器），配置的权重越高。</p>
+                        <p style="font-size: 14px">&nbsp;&nbsp;&nbsp;weight：调整该服务器的权重。权重高的服务器将承受更多流量，一般性能越强的机器（如物理机、高配虚拟机、高配容器），应配置越高的权重。</p>
                     </div>
                 </div>
                 <div>
@@ -110,7 +108,7 @@
                         <p style="font-size: 14px">&nbsp;&nbsp;&nbsp;hash：自定义哈希。根据指定的报文参数来哈希到具体的机器，一般可指定为URL或一致性哈希值</p>
                     </div>
                     <div>
-                        <p style="font-size: 14px">&nbsp;&nbsp;&nbsp;自定义脚本：用户可根据lua脚本自己定义负载均衡逻辑</p>
+                        <p style="font-size: 14px">&nbsp;&nbsp;&nbsp;自定义脚本：用户可根据lua脚本自定义负载均衡逻辑</p>
                     </div>
                 </div>
                 <div>
@@ -120,7 +118,7 @@
                         <p style="font-size: 14px">&nbsp;&nbsp;&nbsp;Nginx的重试机制通过调整upstream模块server的参数完成，其中，较为重要的属性有：</p>
                     </div>
                     <div>
-                        <p style="font-size: 14px">&nbsp;&nbsp;&nbsp;max_fails：失败了max_fails次后不再尝试重试。重试失败，标记为不可用</p>
+                        <p style="font-size: 14px">&nbsp;&nbsp;&nbsp;max_fails：失败了max_fails次后不再重试。此时重试失败，机器被标记为不可用</p>
                     </div>
                     <div>
                         <p style="font-size: 14px">&nbsp;&nbsp;&nbsp;fail_timeout：重试的超时时间</p>
@@ -177,16 +175,16 @@
                         <p style="font-size: 14px">&nbsp;&nbsp;&nbsp;b 发现：用户可以从中间件发现所有机器</p>
                     </div>
                     <div>
-                        <p style="font-size: 14px">&nbsp;&nbsp;&nbsp;c 高可靠：坏机器自动踢掉</p>
+                        <p style="font-size: 14px">&nbsp;&nbsp;&nbsp;c 高可靠：不可用机器自动踢掉</p>
                     </div>
                     <div>
-                        <p style="font-size: 14px">&nbsp;&nbsp;&nbsp;d 通知：公共配合变更能推送到所有机器</p>
+                        <p style="font-size: 14px">&nbsp;&nbsp;&nbsp;d 通知：公共配置变更能推送到所有机器</p>
                     </div>
                     <div>
                         <p style="font-size: 14px">&nbsp;&nbsp;&nbsp;e 集群化：防止单点故障</p>
                     </div>
                     <div>
-                        <p style="font-size: 14px">&nbsp;&nbsp;&nbsp;除了中间件以外，还得有一个控制Nginx的代理，这个代理可以根据中间件拿到的信息自动的修改nginx配置并重启nginx，常见的代理有confd。一次动态均衡的过程简单来说是：启动confd，confd监听服务发现中间件，若监听到中间件配置变更，则更新upstream并重启nginx使服务生效。</p>
+                        <p style="font-size: 14px">&nbsp;&nbsp;&nbsp;除了中间件以外，还得有一个控制Nginx的代理，这个代理可以根据中间件拿到的信息自动的修改Nginx配置并重启Nginx，常见的代理有confd。一次动态均衡的过程简单来说是：启动confd，confd监听服务发现中间件，若监听到中间件配置变更，则更新upstream并重启nginx使服务生效。</p>
                     </div>
                 </div>
             </div>
