@@ -79,7 +79,7 @@
                     <h3 style="padding-top: 10px">自动降级</h3>
                     <hr>
                     <div>
-                        <p style="font-size: 14px">&nbsp;&nbsp;&nbsp;服务降级可以人工调节开关来出发，也可通过监控指标自动触发。自动降级可监控的指标有：</p>
+                        <p style="font-size: 14px">&nbsp;&nbsp;&nbsp;服务降级即可通过人工控制开关来触发，也可通过监控指标自动触发。自动降级的常见监控指标有：</p>
                     </div>
                     <div>
                         <p style="font-size: 14px">&nbsp;&nbsp;&nbsp;超时：设置好超时参数（超时时间和次数），超时后自动降级</p>
@@ -98,26 +98,26 @@
                     <h3 style="padding-top: 10px">人工降级</h3>
                     <hr>
                     <div>
-                        <p style="font-size: 14px">&nbsp;&nbsp;&nbsp;人工降级一般用于可预见的场景，如系统依赖的第三方可能出错、不稳当的新beta本上线可能有隐含BUG等，一般人工降级都通过灰度开关来实现。灰度开关参数可以存放在配置文件、数据库、redis、zookeeper中，通过配置中心提供的API监控开关状态。</p>
+                        <p style="font-size: 14px">&nbsp;&nbsp;&nbsp;人工降级一般用于可预见的场景，如系统依赖的第三方可能出错、Beta版本上线后可能暗含有BUG。人工降级一般通过灰度开关来实现，灰度开关参数可以存放于配置文件、数据库、redis、zookeeper中，客户端通过配置中心提供的API监控开关状态。</p>
                     </div>
                     <div>
-                        <p style="font-size: 14px">&nbsp;&nbsp;&nbsp;当系统分层较为精细的情况下，人工降级开关可以设置在多个层级的节点李，如页面降级开关、接入层降级开关，应用层降级开关、数据库降级开关等。多级开关能更细粒度的控制降级需要。</p>
+                        <p style="font-size: 14px">&nbsp;&nbsp;&nbsp;当系统分层较为精细的情况下，人工降级开关可以设分布在多个层级的节点里，如页面可以设置有降级开关、接入层、应用层、数据库都可以分布有降级开关。多级开关能更细粒度的控制降级。</p>
                     </div>
                 </div>
                 <div>
                     <h3 style="padding-top: 10px">读写降级</h3>
                     <hr>
                     <div>
-                        <p style="font-size: 14px">&nbsp;&nbsp;&nbsp;在一致性要求不高的情况下，读降级会将数据的读取源从数据库切到缓存或者预设的静态数据（如静态页面）。</p>
+                        <p style="font-size: 14px">&nbsp;&nbsp;&nbsp;在一致性要求不高的情况下，读降级会将数据的读取源从数据库切到缓存或预设静态数据（如静态页面）。</p>
                     </div>
                     <div>
                         <p style="font-size: 14px">&nbsp;&nbsp;&nbsp;写降级用到的场景相对较少，写降级的关键是写Cache同步化、写库异步化。</p>
                     </div>
                     <div>
-                        <p style="font-size: 14px">&nbsp;&nbsp;&nbsp;举个栗子，电商业务扣减库存，常规套路是先扣减DB，再扣减缓存，或者先扣缓存，再扣减DB，扣DB若失败则回滚缓存。但在大促期间，由于瞬发压力较高，扣减DB很可能会坑爆系统。</p>
+                        <p style="font-size: 14px">&nbsp;&nbsp;&nbsp;举个栗子，电商业务扣减库存，常规套路是先扣减DB，再扣减缓存；或者先扣缓存，再扣减DB，扣DB失败时回滚缓存。但在大促期间，由于系统瞬发压力较高，扣减DB可能会坑爆系统。</p>
                     </div>
                     <div>
-                        <p style="font-size: 14px">&nbsp;&nbsp;&nbsp;为了解决这个问题，扣减DB这步可以改为异步操作，通过消息中间件记录扣减动作，然后根据DB集群的处理能力平滑请求处理。</p>
+                        <p style="font-size: 14px">&nbsp;&nbsp;&nbsp;为解决这个问题，扣减DB这步可以改为异步操作，通过消息中间件记录扣减动作，然后根据DB集群的处理能力平滑业务处理。</p>
                     </div>
                 </div>
                 <div>
@@ -127,29 +127,29 @@
                         <p style="font-size: 14px">&nbsp;&nbsp;&nbsp;如何实现一个配置中心？</p>
                     </div>
                     <div>
-                        <p style="font-size: 14px">&nbsp;&nbsp;&nbsp;阿里通过Diamond中间件来实现配置中心，基于此之上的Switch平台来设置降级开关。Switch提供统一的方式来定义开关、统一的控制台和api来对开关进行查询和操控。Switch定义的开关包含丰富的可读性属性，为开关信息的维护和传承提供便利。</p>
+                        <p style="font-size: 14px">&nbsp;&nbsp;&nbsp;阿里通过Diamond中间件实现配置中心，基于此之上的Switch平台来设置降级开关。Switch提供统一的方式来定义开关、统一的控制台和api来对开关进行查询和操控。Switch定义的开关包含丰富的可读性属性，为开关信息的维护和传承提供便利。</p>
                     </div>
                     <div>
-                        <p style="font-size: 14px">&nbsp;&nbsp;&nbsp;Switch会将代码中用户标记的属性纳入自己的容器中，然后为其注册监听回调，当Switch平台数值变化时，就将新值通过回调更新到​属性中。</p>
+                        <p style="font-size: 14px">&nbsp;&nbsp;&nbsp;Switch会将代码中用户标记的属性（降级时，这些属性就是降级开关）纳入自己的容器中，然后为其注册监听回调。当Switch平台数值发生变化时，就将新值通过回调更新到属性中。</p>
                     </div>
                     <div>
-                        <p style="font-size: 14px">&nbsp;&nbsp;&nbsp;神州优车通过ZooKeeper建立了分布式配置中心。ZK管理配置的原理很多地方都有讲解​，此处不再赘述。</p>
+                        <p style="font-size: 14px">&nbsp;&nbsp;&nbsp;神州优车通过ZooKeeper建立了分布式配置中心。ZK配置管理的原理很多地方都有讲解​，此处不再赘述。</p>
                     </div>
                 </div>
                 <div>
                     <h3 style="padding-top: 10px">Hystrix</h3>
                     <hr>
                     <div>
-                        <p style="font-size: 14px">&nbsp;&nbsp;&nbsp;Hystrix是Netflix开发的一款隔离框架，可用于服务降级，如果你对Hystrix一窍不通，至少得知道如下几点分布式的知识：</p>
+                        <p style="font-size: 14px">&nbsp;&nbsp;&nbsp;Hystrix是Netflix开发的一款隔离框架，可用于服务降级，如果读者对Hystrix闻所未闻，至少得知道以下几点分布式的常识：</p>
                     </div>
                     <div>
-                        <p style="font-size: 14px">&nbsp;&nbsp;&nbsp;1 在高压环境下，分布式系统中的服务时常会挂，服务不可用后，它的依赖方若不加处理可能会引起连锁反应，整个链路都会崩溃。</p>
+                        <p style="font-size: 14px">&nbsp;&nbsp;&nbsp;1 高压环境下，分布式系统的服务时常会挂，服务不可用后，它的依赖方若不加处理可能会引起连锁反应，使整个链路崩溃。</p>
                     </div>
                     <div>
-                        <p style="font-size: 14px">&nbsp;&nbsp;&nbsp;2 分布式调用结果不止成功、失败​两种，还有超时（网络问题）和服务拒绝（应用的自我保护机制）</p>
+                        <p style="font-size: 14px">&nbsp;&nbsp;&nbsp;2 分布式调用结果不止成功、失败两种结果，还有超时（网络问题）和服务拒绝（应用的自我保护机制）</p>
                     </div>
                     <div>
-                        <p style="font-size: 14px">&nbsp;&nbsp;&nbsp;Hystrix在分布式系统实现了应用的自我保护机制，以此防止不可控制的连锁反应，防止整个链路崩溃。Hystrix可以识别当前服务的执行状况，当某个异常条件被触发时，相关的回调将被执行。因此，我们可以将降级逻辑注册到感兴趣的回调中，藉此实现降级。</p>
+                        <p style="font-size: 14px">&nbsp;&nbsp;&nbsp;Hystrix为分布式系统提供一套易用的自我保护机制编写框架，以防止不可控制的连锁反应，避免整个链路崩溃。Hystrix可识别当前服务的执行状况，当某个异常条件被触发时，相关的回调将被执行。因此，我们可以将降级逻辑注册到感兴趣的异常事件回调中，藉此实现降级。</p>
                     </div>
                 </div>
             </div>
