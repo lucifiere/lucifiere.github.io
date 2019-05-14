@@ -71,40 +71,40 @@
                     <h3 style="padding-top: 10px">前言</h3>
                     <hr>
                     <div>
-                        <p style="font-size: 14px">&nbsp;&nbsp;&nbsp;缓存设计是高并发系统架构的重中之重，合理使用缓存可以提升应用的访问速度和并发能力。本文将总结缓存在架构体系中应用层的设计与落地方案。</p>
+                        <p style="font-size: 14px">&nbsp;&nbsp;&nbsp;缓存设计是高并发系统架构的重中之重，合理使用缓存可以提升应用的访问速度和并发能力。本文将总结架构体系中应用层的缓存设计与落地方案。</p>
                     </div>
                 </div>
                 <div>
                     <h3 style="padding-top: 10px">目的</h3>
                     <hr>
                     <div>
-                        <p style="font-size: 14px">&nbsp;&nbsp;&nbsp;引入缓存的目的可概括为3点：</p>
+                        <p style="font-size: 14px">&nbsp;&nbsp;&nbsp;系统引入缓存的目的可概括为3点：</p>
                     </div>
                     <div>
                         <p style="font-size: 14px">&nbsp;&nbsp;&nbsp;1 引入缓存可减少低速数据源的访问，提升访问效率。eg：CPU访问热点数据的顺序是寄存器、内存、硬盘</p>
                     </div>
                     <div>
-                        <p style="font-size: 14px">&nbsp;&nbsp;&nbsp;2 引入缓存可从更靠近请求方的地方拿到数据，提升访问效率。eg：maven仓库依赖加载顺序为本地仓库、本地服务器、远程服务器；</p>
+                        <p style="font-size: 14px">&nbsp;&nbsp;&nbsp;2 引入缓存可从更靠近请求方的地方拿到数据，提升访问效率。eg：Maven仓库依赖加载顺序为本地仓库、本地服务器、远程服务器；</p>
                     </div>
                     <div>
-                        <p style="font-size: 14px">&nbsp;&nbsp;&nbsp;3 引入缓存可以缓解低负载应用的压力，提升系统可用性。eg：web请求优先访问缓存，而不是直接访问并发负载级别较低数据库</p>
+                        <p style="font-size: 14px">&nbsp;&nbsp;&nbsp;3 引入缓存可缓解负载能力较弱的应用所承受的压力，提升系统可用性。eg：Web请求优先访问缓存，而不是直接访问并发能力较弱的数据库</p>
                     </div>
                 </div>
                 <div>
                     <h3 style="padding-top: 10px">设计思路</h3>
                     <hr>
                     <div>
-                        <p style="font-size: 14px">&nbsp;&nbsp;&nbsp;Cache-Aside​：缓存设计的常规思路。读操作分三步走，读缓存，没有则读库并将结果存入缓存；写操作有两种，当数据更新后，可选择将已有缓存清除或者更新。</p>
+                        <p style="font-size: 14px">&nbsp;&nbsp;&nbsp;Cache-Aside​：业务整合缓存逻辑，这是缓存设计的常规思路。实现方式为 -> 读操作分三步走，读缓存，没有则读库并将结果存入缓存；写操作有两种，当数据更新后，可选择将已有缓存清除或者更新。</p>
                     </div>
                     <div>
-                        <p style="font-size: 14px">&nbsp;&nbsp;&nbsp;Cache-As-Sor：业务对数据的操作都交给缓存处理器，读库逻辑全部封装到缓存处理器中，对业务透明。缓存处理器内部封装的数据逻辑为 -》读缓存，没有则读库并将结果存入缓存；写缓存，具体操作委托给处理器，处理器来双写缓存和库。这种模式很好的分离了业务逻辑和缓存逻辑，我们可以将批操作、多线程、异步等提升性能的技术引入到处理器中，既提升了性能，又不会侵入到业务代码。</p>
+                        <p style="font-size: 14px">&nbsp;&nbsp;&nbsp;Cache-As-Sor：业务将数据操作代理给缓存处理器，这是设计实现里稍为复杂的一种思路。读库逻辑全部封装到缓存处理器中，对业务透明。缓存处理器内部封装的数据逻辑为 -> 读缓存，没有则读库并将结果存入缓存；写缓存，具体操作委托给处理器，处理器来双写缓存和库。这种模式很好的分离了业务逻辑和缓存逻辑，我们可以将批操作、多线程、异步等提升性能的技术引入到处理器中，既提升了性能，又不会侵入到业务代码。</p>
                     </div>
                 </div>
                 <div>
                     <h3 style="padding-top: 10px">实现方式</h3>
                     <hr>
                     <div>
-                        <p style="font-size: 14px">&nbsp;&nbsp;&nbsp;缓存的实现方式很多，建议借助成熟的工具如Guava、EhCache来包装自己的缓存工具，在学习缓存工具之前，需要先了解下缓存的介质类型。常见的Java缓存介质包括JVM堆、直接内存、磁盘、分布式缓存。</p>
+                        <p style="font-size: 14px">&nbsp;&nbsp;&nbsp;缓存的实现方式有很多，建议借助成熟的工具如Guava、EhCache来包装自己的缓存工具，而不是完全由自己编写。在学习缓存工具之前，最好先了解下缓存的介质类型。常见的Java缓存介质包括JVM堆、直接内存、磁盘、分布式缓存。</p>
                     </div>
                     <div>
                         <p style="font-size: 14px">&nbsp;&nbsp;&nbsp;JVM堆：本地缓存一般基于JVM堆实现，优点是简单易用高效且不需要序列化；缺点是不适合大数据量的场景，因为数据量过大会导致GC暂停时间拉长；自己实现本地缓存时，可结合软引用、弱引用来优化内存安全，如无特殊需求，可使用Google提供的Guava来实现本地缓存。</p>
