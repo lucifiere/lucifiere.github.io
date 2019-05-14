@@ -65,7 +65,8 @@
                 <div class="user">XD.Wang</div>
                 <div class="tags">架构</div>
             </div>
-            <div class="blog-item-single-content"><a class="single_image" href="/page/tech/blog/blog-7/cache1-article.jpeg"><img
+            <div class="blog-item-single-content"><a class="single_image"
+                                                     href="/page/tech/blog/blog-7/cache1-article.jpeg"><img
                     src="/page/tech/blog/blog-7/cache1-article.jpeg" width="720" height="280" alt="blog1"/></a>
                 <div>
                     <h3 style="padding-top: 10px">前言</h3>
@@ -149,6 +150,9 @@
                         <p style="font-size: 14px">&nbsp;&nbsp;&nbsp;设置淘汰机制：缓存空间占满时，需要淘汰部分数据以支持新的缓存需求。常见的淘汰方式有 FIFO方式 ->
                             最老的数据被淘汰。当数据实时性要求很高的情况下可采用此方式；LFU方式 ->
                             最少使用的优先淘汰。这种方式可以保证高频访问的数据被留下；LRU：最近最少使用的被淘汰。为每个数据记下最后一次访问的时间戳，优先淘汰时间戳最小的数据；</p>
+                    </div>
+                    <div>
+                        <p style="font-size: 14px">&nbsp;&nbsp;&nbsp;缓存更新检查：当数据量较大时，请求方可以自己缓存一份数据到本地，只有当数据变化时再拉取服务方的新数据。监控数据变化的方式是引入版本机制，为缓存的数据标记一个版本标识，如最后更新时间。请求方每次发起数据请求都携带一个当前版本号，若版本号和服务方的版本号不一致时才拉取数据，避免大量无意义的数据传输；</p>
                     </div>
                 </div>
             </div>
