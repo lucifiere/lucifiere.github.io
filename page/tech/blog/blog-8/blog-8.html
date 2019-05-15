@@ -92,14 +92,14 @@
                         <p style="font-size: 14px">&nbsp;&nbsp;&nbsp;不过，普通的哈希算法运用在分布式负载均衡中仍有不足，因为算法的正确性依赖于机器的数量。在分布式系统中，机器数量的变动是个高频事件。当机器数量变动时，上述哈希取模计算的结果也会相应变化，从而导致大规模的缓存查询失效，引发缓存雪崩。</p>
                     </div>
                     <div>
-                        <p style="font-size: 14px">&nbsp;&nbsp;&nbsp;为了防止机器数量变化导致缓存雪崩，我们需要一种更为复杂的算法来减少它对缓存的影响，解决之道便是<b>一致性哈希</b>>。</p>
+                        <p style="font-size: 14px">&nbsp;&nbsp;&nbsp;为了防止机器数量变化导致缓存雪崩，我们需要一种更为复杂的算法来减少它对缓存的影响，解决之道便是<b>一致性哈希</b>。</p>
                     </div>
                 </div>
                 <div>
                     <h3 style="padding-top: 10px">原理</h3>
                     <hr>
                     <div>
-                        <p style="font-size: 14px">&nbsp;&nbsp;&nbsp;理解一致性哈希的原理需要一定的想象力。</p>
+                        <p style="font-size: 14px">&nbsp;&nbsp;&nbsp;理解一致性哈希需要一定的想象力。</p>
                     </div>
                     <div>
                         <p style="font-size: 14px">&nbsp;&nbsp;&nbsp;首先，我们想象一个均匀分布着2^32（4294967296）个节点的环，称它为哈希环。</p>
@@ -126,6 +126,7 @@
                     <div>
                         <p style="font-size: 14px">&nbsp;&nbsp;&nbsp;哈希取模算法在样本较少时可能无法分布均匀。运气不好的情况下，散列机器IP时可能产生下图这种情况，导致大量数据缓存在一台机器上。如果数据都集中某台机器，当这台机器下线时，依然会出现缓存雪崩。</p>
                     </div>
+                    <img src="/page/tech/blog/blog-8/circle-5.jpeg" width="720px" alt="blog1"/>
                     <div>
                         <p style="font-size: 14px">&nbsp;&nbsp;&nbsp;改进方法，就是引入虚拟节点概念。</p>
                     </div>
